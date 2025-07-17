@@ -1,0 +1,49 @@
+<div class="packages-container">
+  <div class="packages-header">
+    <div class="section-title">الباقات</div>
+    <div class="section-description">اختر الباقة المناسبة لك</div>
+  </div>
+
+  <div class="swiper-container">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide" *ngFor="let package of packages">
+        <div class="package-item animate-on-scroll" appInViewport [ngClass]="{
+            'package-diamond': package.name.includes('الماسية'),
+            'package-fort': package.name.includes('الحصون'),
+            'package-bronze': package.name.includes('برونزية'),
+            'package-silver': package.name.includes('الفضية'),
+            'package-gold': package.name.includes('ذهبية')
+          }">
+          <div class="package-title">{{ package.name }}</div>
+          <div class="package-price">
+            <strong *ngIf="package.currency === 'LE'">
+              {{ package.price }} ج.م / الشهر
+            </strong>
+            <strong *ngIf="package.currency === 'SAR'">
+              {{ package.price }} ريال / الشهر
+            </strong>
+            <strong *ngIf="package.currency === 'USD'">
+              ${{ package.price }} / month
+            </strong>
+          </div>
+     
+          
+          
+          <ul class="package-features">
+            <li>الدقائق الكلية: {{ package.totalMinutes }}</li>
+            <!-- <li>عدد المشتركين: {{ package.subscriberCount }}</li> -->
+            <li>نوع الاشتراك: {{ package.subscribeType }}</li>
+          </ul>
+          <a href="https://ajyalalquran.somee.com/#/add-packages" target="_blank">
+            <button class="btn-select">اشترك الآن</button>
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- Swiper navigation buttons -->
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+    <!-- Swiper pagination -->
+    <!-- <div class="swiper-pagination"></div> -->
+  </div>
+</div>

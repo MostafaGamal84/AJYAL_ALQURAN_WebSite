@@ -1,0 +1,39 @@
+<section class="testimonials-section container-fluid py-5 animate-on-scroll" aria-labelledby="testimonials-title" appInViewport>
+  <div class="row mb-5">
+    <div class="col-12 text-center">
+      <h2 id="testimonials-title" class="section-header mb-3">إنجازات الطلاب الخاتمين</h2>
+      <p class="section-subtitle mx-auto">
+        شاهد قصص نجاح طلابنا وتجاربهم المميزة في رحلة تعلم القرآن الكريم
+      </p>
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-12 col-lg-8">
+      <div class="testimonials-slider position-relative">
+        <div class="swiper" role="region" aria-label="شرائح إنجازات الطلاب">
+          <div class="swiper-wrapper">
+            <div *ngFor="let slide of slides; let i = index" class="swiper-slide text-center" role="group"
+              [attr.aria-label]="slide.title">
+              <div class="testimonial-image-wrapper">
+                <img [src]="slide.image" [alt]="slide.title" class="testimonial-image" loading="lazy" />
+              </div>
+              <div class="testimonial-content mt-4">
+                <p class="testimonial-text mb-3">{{ slide.subtitle }}</p>
+                <h3 class="testimonial-name">{{ slide.title }}</h3>
+                <p class="testimonial-role mb-0">طالب</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button class="nav-button prev-button" aria-label="السابق">
+          <span class="arrow-icon">&#10094;</span>
+        </button>
+        <button class="nav-button next-button" aria-label="التالي">
+          <span class="arrow-icon">&#10095;</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
