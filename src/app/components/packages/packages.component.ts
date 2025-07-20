@@ -22,8 +22,7 @@ export class PackagesComponent implements OnInit, AfterViewInit {
   packages: any[] = [];
   error: string | null = null;
   swiper: Swiper | null = null;
-  currencyField: 'priceLE' | 'priceReyal' | 'priceDollar' = 'priceDollar';
-
+currencyField: 'priceLE' | 'priceReyal' | 'priceDollar' = 'priceDollar';
   constructor(
     private packagesService: PackagesService,
     private cdr: ChangeDetectorRef,
@@ -39,85 +38,83 @@ export class PackagesComponent implements OnInit, AfterViewInit {
   }
 
   detectUserCurrencyAndLoadPackages(): void {
-    this.http.get<{ country_name: string, country_code?: string, currency?: string }>('https://ipapi.co/json/').subscribe({
-      next: (res) => {
-        const country = res.country_name;
-        const code = res.country_code;
-        const currency = res.currency;
+  const token = 'fe3e37c3944763';
+  this.http.get<{ country?: string }>(`https://ipinfo.io/json?token=${token}`).subscribe({
+    next: (res) => {
+      const code = res.country?.toUpperCase() || '';
 
-        if (country === 'Egypt' || code === 'EG' || currency === 'EGP') {
-          this.currencyField = 'priceLE';
-        } 
-        //  else if (
-        //   country === 'Saudi Arabia' ||
-        //   country === 'KSA' ||
-        //   country.includes('Saudi') ||
-        //   code === 'SA' ||
-        //   currency === 'SAR'
-        // )
-        // {
-        //   this.currencyField = 'priceReyal';
-        
-        // } 
-        else {
-          this.currencyField = 'priceDollar';
-        }
-
-        this.loadPackages();
-      },
-      error: () => {
-        console.warn('Fallback to dollar');
+      if (code === 'EG') {
+        this.currencyField = 'priceLE';
+      } else if (code === 'SA') {
+        this.currencyField = 'priceReyal';
+      } else {
         this.currencyField = 'priceDollar';
-        this.loadPackages();
       }
-    });
-  }
+
+      this.loadPackages();
+    },
+    error: () => {
+      console.warn('IP detection failed, fallback to USD');
+      this.currencyField = 'priceDollar';
+      this.loadPackages();
+    }
+  });
+}
+
 
   loadPackages(): void {
-    this.packagesService.getPackages(this.currencyField).subscribe({
-      next: (data) => {
-        this.packages = data;
-        this.error = null;
+    this.packagesService.getPackages().subscribe({
+      next: (res) => {
+        this.packages = res;
         this.cdr.detectChanges();
         this.initializeSwiper();
+        console.log(this.packages);
       },
-      error: (err: any) => {
-        this.error = 'فشل في تحميل الباقات. حاول لاحقًا.';
-        console.error(err);
+      error: () => {
+        this.error = 'فشل تحميل الباقات.';
       }
     });
   }
 
   initializeSwiper(): void {
-    if (this.swiper) {
-      this.swiper.destroy(true, true);
-    }
-
-    this.swiper = new Swiper('.swiper-container', {
-      slidesPerView: 'auto',
-      spaceBetween: 20,
-      centeredSlides: true,
-      observeParents: true,
-      observer: true,
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      },
-      loop: false,
-      autoplay: {
-        delay: 3000,
-        disableOnInteraction: false,
-      },
-      pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-      },
-      breakpoints: {
-        320: { slidesPerView: 'auto', centeredSlides: true, spaceBetween: 15 },
-        768: { slidesPerView: 'auto', centeredSlides: true, spaceBetween: 20 },
-        1024: { slidesPerView: 4, centeredSlides: false, spaceBetween: 20 },
-        1440: { slidesPerView: 6, centeredSlides: false, spaceBetween: 20 }
+    setTimeout(() => {
+      if (this.swiper) {
+        this.swiper.destroy(true, true);
       }
-    });
+      this.swiper = new Swiper('.swiper-container', {
+        slidesPerView: 1,
+        spaceBetween: 20,
+        loop: true,
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true
+        },
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev'
+        },
+        breakpoints: {
+          640: { slidesPerView: 1 },
+          768: { slidesPerView: 2 },
+          1024: { slidesPerView: 3 }
+        }
+      });
+    }, 100);
   }
+
+ getPrice(pkg: any): string {
+  console.log('Full pkg:', pkg);
+  console.log('Currency field:', this.currencyField);
+
+  switch (this.currencyField) {
+    case 'priceLE':
+      return pkg.priceLE != null ? `${pkg.priceLE} ج.م / الشهر` : '—';
+    case 'priceReyal':
+      return pkg.priceReyal != null ? `${pkg.priceReyal} ريال / الشهر` : '—';
+    case 'priceDollar':
+    default:
+      return pkg.priceDollar != null ? `$${pkg.priceDollar} / month` : '—';
+  }
+}
+
 }
