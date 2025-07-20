@@ -1,7 +1,7 @@
 <section class="testimonials-section container-fluid py-5 animate-on-scroll" aria-labelledby="testimonials-title" appInViewport>
   <div class="row mb-5">
     <div class="col-12 text-center">
-      <h2 id="testimonials-title" class="section-header mb-3">إنجازات الطلاب الخاتمين</h2>
+      <h2 id="testimonials-title" class="section-header mb-3">لوحة الشرف للطلاب الخاتمين</h2>
       <p class="section-subtitle mx-auto">
         شاهد قصص نجاح طلابنا وتجاربهم المميزة في رحلة تعلم القرآن الكريم
       </p>
@@ -19,9 +19,11 @@
                 <img [src]="slide.image" [alt]="slide.title" class="testimonial-image" loading="lazy" />
               </div>
               <div class="testimonial-content mt-4">
-                <p class="testimonial-text mb-3">{{ slide.subtitle }}</p>
-                <h3 class="testimonial-name">{{ slide.title }}</h3>
-                <p class="testimonial-role mb-0">طالب</p>
+              
+                <h3  class="testimonial-name">{{ slide.title }}</h3>
+                 <p class="testimonial-role mb-0">{{ slide.gender }}</p>
+                  <p class="testimonial-text mb-3">{{ slide.subtitle }}</p>
+               
               </div>
             </div>
           </div>

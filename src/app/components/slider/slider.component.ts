@@ -6,6 +6,7 @@ import { Navigation } from 'swiper/modules';
 interface TestimonialSlide {
   image: string;
   title: string;
+  gender?: string;
   subtitle: string;
 }
 
@@ -18,21 +19,219 @@ interface TestimonialSlide {
 })
 export class SliderComponent implements OnInit, AfterViewInit {
   slides: TestimonialSlide[] = [
-    {
-      image: 'https://i.pinimg.com/736x/f2/fa/a4/f2faa44cc72d5d11d59f031962f3c7bc.jpg',
-      title: 'أحمد محمد',
-      subtitle: 'الحمد لله، أتممت حفظ القرآن الكريم كاملاً في عامين من الدراسة المنتظمة',
-    },
-    {
-      image: 'https://i.pinimg.com/736x/cf/db/2f/cfdb2ffc2643584278cc7d91a67dc908.jpg',
-      title: 'عبد الرحمن خالد',
-      subtitle: 'تعلمت القراءة الصحيحة وأحكام التجويد بطريقة سهلة وميسرة',
-    },
-    {
-      image: 'https://i.pinimg.com/736x/4d/1a/19/4d1a19621a8a37cedab32b234fafb26a.jpg',
-      title: 'محمد عبد الله',
-      subtitle: 'أشكر معلمي على صبره وحسن تعليمه، وأنصح كل من يريد تعلم القرآن بهذا المعهد',
-    },
+     {
+    image: 'https://ajyalalquran.somee.com/assets/images/girl.jpg',
+    title: 'أ.فاطمة عثمان (حفص - قالون)',
+    gender: 'طالبة',
+    subtitle: 'حفص مع أ. أمل أبو الفتوح - قالون مع أ. سماح حسين',
+  },
+  {
+    image: 'https://ajyalalquran.somee.com/assets/images/girl.jpg',
+    title: 'أ. أسماء سعيد( عاصم وقالون)',
+    gender: 'طالبة',
+    subtitle: 'عاصم مع أ. هبة محمد - قالون مع أ. عزة عطا',
+  },
+  {
+    image: 'https://ajyalalquran.somee.com/assets/images/girl.jpg',
+    title: 'أ. أمل كامل (حفص)',
+    gender: 'طالبة',
+    subtitle: 'مع أ. فاطمة عثمان',
+  },
+  {
+    image: 'https://ajyalalquran.somee.com/assets/images/girl.jpg',
+    title: 'أ. ايمان كامل (حفص)',
+    gender: 'طالبة',
+    subtitle: 'مع أ. فاطمة عثمان',
+  },
+  {
+    image: 'https://ajyalalquran.somee.com/assets/images/girl.jpg',
+    title: 'أ. آيات عاطف(حفص)',
+    gender: 'طالبة',
+    subtitle: 'مع أ. فاطمة عثمان',
+  },
+  {
+    image: 'https://ajyalalquran.somee.com/assets/images/girl.jpg',
+    title: 'أ. إيمان صلاح (حفص)',
+    gender: 'طالبة',
+    subtitle: 'مع أ. فاطمة عثمان',
+  },
+  {
+    image: 'https://ajyalalquran.somee.com/assets/images/girl.jpg',
+    title: 'أ. شيماء محمد (حفص)',
+    gender: 'طالبة',
+    subtitle: 'مع أ. فاطمة أحمد',
+  },
+  {
+    image: 'https://ajyalalquran.somee.com/assets/images/girl.jpg',
+    title: 'أ. آلاء عبد الباسط (حفص)',
+    gender: 'طالبة',
+    subtitle: 'مع أ. عبير النيل',
+  },
+  {
+    image: 'https://ajyalalquran.somee.com/assets/images/girl.jpg',
+    title: 'أ. أسماء عبد الفتاح (حفص)',
+    gender: 'طالبة',
+    subtitle: 'مع أ. إيمان زكريا',
+  },
+  {
+    image: 'https://ajyalalquran.somee.com/assets/images/girl.jpg',
+    title: 'صفاء كامل (حفص)',
+    gender: 'طالبة',
+    subtitle: 'مع أ. إلهام رشاد',
+  },
+  {
+    image: 'https://ajyalalquran.somee.com/assets/images/girl.jpg',
+    title: 'أ.شيماء ابو النور (حفص)',
+    gender: 'طالبة',
+    subtitle: 'مع أ. إلهام رشاد',
+  },
+  {
+    image: 'https://ajyalalquran.somee.com/assets/images/girl.jpg',
+    title: 'أ.ماريا سمير (حفص)',
+    gender: 'طالبة',
+    subtitle: 'مع أ. إلهام رشاد',
+  },
+  {
+    image: 'https://ajyalalquran.somee.com/assets/images/girl.jpg',
+    title: 'أ. أمة الملك سمير(حفص)',
+    gender: 'طالبة',
+    subtitle: 'مع أ. إيمان السيد',
+  },
+  {
+    image: 'https://ajyalalquran.somee.com/assets/images/girl.jpg',
+    title: 'أ. ياسمين الداعري(حفص)',
+    gender: 'طالبة',
+    subtitle: 'مع أ. إيمان السيد',
+  },
+  {
+    image: 'https://ajyalalquran.somee.com/assets/images/girl.jpg',
+    title: 'أ.إسراء نعيم (حفص)',
+    gender: 'طالبة',
+    subtitle: 'مع أ. إيمان السيد',
+  },
+  {
+    image: 'https://ajyalalquran.somee.com/assets/images/girl.jpg',
+    title: 'أ. ندي احمد عيد (حفص)',
+    gender: 'طالبة',
+    subtitle: 'مع أ. الشيماء الصيفي',
+  },
+  {
+    image: 'https://ajyalalquran.somee.com/assets/images/girl.jpg',
+    title: 'أ.مريم علي عبد الله(عاصم)',
+    gender: 'طالبة',
+    subtitle: 'مع أ. أمل أبو الفتوح',
+  },
+  {
+    image: 'https://ajyalalquran.somee.com/assets/images/girl.jpg',
+    title: 'مريم محمود (حفص)',
+    gender: 'طالبة',
+    subtitle: 'مع أ. أرزاق محمد',
+  },
+  {
+    image: 'https://ajyalalquran.somee.com/assets/images/girl.jpg',
+    title: 'أ.هويدا محمد (عاصم)',
+    gender: 'طالبة',
+    subtitle: 'مع أ. أمل أبو الفتوح',
+  },
+  {
+    image: 'https://ajyalalquran.somee.com/assets/images/girl.jpg',
+    title: 'أ.أميرة محمد (عاصم)',
+    gender: 'طالبة',
+    subtitle: 'مع أ. أمل أبو الفتوح',
+  },
+  {
+    image: 'https://ajyalalquran.somee.com/assets/images/girl.jpg',
+    title: 'أ.رحاب خالد',
+    gender: 'طالبة',
+    subtitle: 'مع أ. أرزاق محمد',
+  },
+  {
+    image: 'https://ajyalalquran.somee.com/assets/images/girl.jpg',
+    title: 'أ.شيماء عبد الكريم',
+    gender: 'طالبة',
+    subtitle: 'مع أ. أرزاق محمد',
+  },
+  {
+    image: 'https://ajyalalquran.somee.com/assets/images/girl.jpg',
+    title: 'أسماء علي',
+    gender: 'طالبة',
+    subtitle: 'مع أ. هند رجب',
+  },
+  {
+    image: 'https://ajyalalquran.somee.com/assets/images/girl.jpg',
+    title: 'أ. نهى عمارة',
+    gender: 'طالبة',
+    subtitle: 'مع أ. هند رجب',
+  },
+  {
+    image: 'https://ajyalalquran.somee.com/assets/images/girl.jpg',
+    title: 'سلوى كامل',
+    gender: 'طالبة',
+    subtitle: 'مع أ. إيمان زكريا',
+  },
+  {
+    image: 'https://ajyalalquran.somee.com/assets/images/girl.jpg',
+    title: 'ندا عمر',
+    gender: 'طالبة',
+    subtitle: 'مع أ. عبير النيل',
+  },
+  {
+    image: 'https://ajyalalquran.somee.com/assets/images/girl.jpg',
+    title: 'سحر الشيمي',
+    gender: 'طالبة',
+    subtitle: 'مع أ. عبير النيل',
+  },
+
+  // ♂️ Male Students
+  {
+    image: 'https://ajyalalquran.somee.com/assets/images/boy.jpg',
+    title: 'د.أحمد هنداوي',
+    gender: 'طالب',
+    subtitle: 'مع المعلم الشيخ رمضان ربيع',
+  },
+  {
+    image: 'https://ajyalalquran.somee.com/assets/images/boy.jpg',
+    title: 'أ.ٲنس محمد حسني (اجازة عاصم)',
+    gender: 'طالب',
+    subtitle: 'مع المعلم إيهاب صلاح',
+  },
+  {
+    image: 'https://ajyalalquran.somee.com/assets/images/boy.jpg',
+    title: 'أ.معتز عادل',
+    gender: 'طالب',
+    subtitle: 'مع المعلم الشيخ معتز نايل',
+  },
+  {
+    image: 'https://ajyalalquran.somee.com/assets/images/boy.jpg',
+    title: 'أ.محمد رضوان',
+    gender: 'طالب',
+    subtitle: 'مع المعلم الشيخ مصطفى النص',
+  },
+  {
+    image: 'https://ajyalalquran.somee.com/assets/images/boy.jpg',
+    title: 'أ.يحيى السميني (اجازة عاصم)',
+    gender: 'طالب',
+    subtitle: 'مع المعلم الشيخ أحمد فكري',
+  },
+  {
+    image: 'https://ajyalalquran.somee.com/assets/images/boy.jpg',
+    title: 'أ.أسامة يوسف',
+    gender: 'طالب',
+    subtitle: 'مع المعلم الشيخ أحمد أبوبكر',
+  },
+  {
+    image: 'https://ajyalalquran.somee.com/assets/images/boy.jpg',
+    title: 'د.محمود الديب',
+    gender: 'طالب',
+    subtitle: 'مع المعلم الشيخ أحمد أبوبكر',
+  },
+  {
+    image: 'https://ajyalalquran.somee.com/assets/images/boy.jpg',
+    title: 'أ.أحمد يحيى',
+    gender: 'طالب',
+    subtitle: 'مع المعلم الشيخ أحمد سعد',
+  }
+    
   ];
 
   private swiper: Swiper | undefined;

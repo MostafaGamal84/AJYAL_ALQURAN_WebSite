@@ -44,39 +44,39 @@
 /* =====================
    Feature Item
    ===================== */
-   .feature-item {
-    position: relative;
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);
-    padding: 3rem 1.5rem 2rem;
-    text-align: center;
-    overflow: hidden;
-    width: 100%;
-    min-height: var(--item-min-height);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: stretch;
-    border-radius: 10px;
-    
-     transition: 
-      transform 0.4s ease,
-      box-shadow 0.4s ease,
-      border-color 0.4s ease,
-      background-color 0.4s ease;
-    height: 100%;
-    box-sizing: border-box;
-  }
-  
+.feature-item {
+  position: relative;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  padding: 3rem 1.5rem 2rem;
+  text-align: center;
+  overflow: hidden;
+  width: 100%;
+  min-height: var(--item-min-height);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  border-radius: 10px;
 
-  .feature-item:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 12px 30px rgba(13, 95, 249, 0.25);
-    border-color: var(--primary-color);
-    background-color: #f9fbff;
-  }
+  transition:
+    transform 0.4s ease,
+    box-shadow 0.4s ease,
+    border-color 0.4s ease,
+    background-color 0.4s ease;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+
+.feature-item:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 30px rgba(13, 95, 249, 0.25);
+  border-color: var(--primary-color);
+  background-color: #f9fbff;
+}
 
 .feature-item:hover .fea-icon {
   transform: scale(1.1) rotate(5deg);
@@ -104,14 +104,14 @@
 /* =====================
    Icon Area
    ===================== */
-   .fea-icon {
-    height: 140px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1.5rem;
-    transition: transform 0.4s ease;
-  }
+.fea-icon {
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  transition: transform 0.4s ease;
+}
 
 .svg-icon {
   width: 64px;
@@ -157,13 +157,17 @@
   font-weight: 600;
   color: var(--text-primary);
   margin-bottom: 1rem;
+  /* ← تأكد أنها موجودة */
 }
 
 .fea-content {
+  text-align: center;
+  transition: transform var(--transition-duration) ease;
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: flex-start;
+  /* ← مهم */
 }
 
 .fea-desc {
@@ -171,23 +175,27 @@
   color: var(--text-secondary);
   line-height: 2.1;
   margin: 0;
-  padding: 1.25rem 1.5rem;
+  padding: 1.75rem 1.5rem 1.25rem;
+  /* ↑ زودنا padding-top */
   background: linear-gradient(90deg, #f7f9fc 80%, #eaf1fb 100%);
   border-radius: 10px;
   box-shadow: 0 2px 12px rgba(13, 95, 249, 0.06);
-  /* text-align: justify; */
   word-break: break-word;
   min-height: 120px;
   max-height: 160px;
   overflow: auto;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  /* ✅ مهم */
   border-left: 4px solid var(--primary-color);
-  text-shadow: 0 1px 1px rgba(0,0,0,0.03);
-  transition: background 0.4s cubic-bezier(0.4,0,0.2,1), box-shadow 0.4s cubic-bezier(0.4,0,0.2,1);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.03);
+  transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 1.5rem 1.5rem 1.25rem;
+  margin-top: 0.5rem;
 }
 
-.fea-desc:hover, .feature-item:hover .fea-desc {
+.fea-desc:hover,
+.feature-item:hover .fea-desc {
   background: linear-gradient(90deg, #eaf1fb 80%, #f7f9fc 100%);
   box-shadow: 0 4px 18px rgba(13, 95, 249, 0.13);
 }
@@ -203,6 +211,7 @@
 
   .fea-title {
     font-size: 1.1rem;
+    padding-top: 2rem;
   }
 
   .fea-desc {
@@ -257,7 +266,9 @@
     min-height: 360px;
   }
 }
+
 @media (max-width: 768px) {
+
   .fade-in,
   .slide-left,
   .slide-right,

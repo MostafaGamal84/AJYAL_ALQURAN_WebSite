@@ -29,7 +29,7 @@ export class FooterComponent {
 
   contactInfo = {
     email: 'info@ajyalalquran.com',
-    phone: '+20 102 113 1373',
+    phone: '+201099381081',
     address: '123 شارع الأعمال، المدينة، البلد'
   };
 
