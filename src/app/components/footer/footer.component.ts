@@ -14,11 +14,22 @@ export class FooterComponent {
   companyName = 'أجيال القرآن';
   
   socialLinks = [
-    { icon: 'facebook', url: '#', ariaLabel: 'Visit our Facebook page' },
-    { icon: 'twitter', url: '#', ariaLabel: 'Follow us on Twitter' },
-    { icon: 'instagram', url: '#', ariaLabel: 'Follow us on Instagram' },
-    { icon: 'linkedin', url: '#', ariaLabel: 'Connect with us on LinkedIn' }
-  ];
+  {
+    icon: 'youtube',
+    url: 'https://youtube.com/@ajyal_elpraan?si=DtyVJ8hdBoWbC_1V',
+    ariaLabel: 'شاهد قناتنا الأولى على يوتيوب'
+  },
+  {
+    icon: 'youtube',
+    url: 'https://youtube.com/@agyal-alqoran?si=CLZECCURk8jHZvm_',
+    ariaLabel: 'شاهد قناتنا الثانية على يوتيوب'
+  },
+  {
+    icon: 'telegram',
+    url: 'https://youtube.com/@agyal-alqoran?si=CLZECCURk8jHZvm_',
+    ariaLabel: 'انضم إلى قناتنا على تيليجرام'
+  }
+];
 
   quickLinks = [
     { path: '/about', text: 'من نحن' },
@@ -28,7 +39,7 @@ export class FooterComponent {
   ];
 
   contactInfo = {
-    email: 'info@ajyalalquran.com',
+    email: 'allhghayte8@gmail.com',
     phone: '+201099381081',
     address: '123 شارع الأعمال، المدينة، البلد'
   };

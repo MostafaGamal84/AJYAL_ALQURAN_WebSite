@@ -1,15 +1,18 @@
 <h2>{{ isArabic ? "قائمة دوراتنا" : "Our Courses List" }}</h2>
-
 <h3 class="title">{{ isArabic ? "الدورات الشائعة" : "Popular Courses" }}</h3>
 
-<div class="services-container" [class.rtl]="isArabic" appInViewport animationType="fade-in" staggerDelay="1">
+<div *ngIf="services.length === 0" class="no-courses-card">
+  <div class="no-courses-content">
+    <!-- <img src="assets/images/coming-soon.svg" alt="Coming Soon" class="no-courses-image" /> -->
+    <h3>🎉 لا توجد دورات متاحة حالياً</h3>
+    <p>هذه الميزة سيتم تفعيلها قريبًا إن شاء الله. تابعنا للمزيد.</p>
+  </div>
+
+  <!-- ✅ عرض الدورات إذا وُجدت -->
   <div *ngFor="let service of services; let i = index" class="col-md-6 service-details" data-animate>
     <h3 class="course-name">
       {{ service.courseNameAr }}
     </h3>
-    <!-- <p class="students-count">
-      {{ isArabic ? "الطلاب:" : "Students:" }} {{ service.studentsCount }}
-    </p> -->
     <p class="lessons-hours">
       {{ isArabic ? "الدروس:" : "Lessons:" }} {{ service.lessons }} |
       {{ isArabic ? "الساعات:" : "Hours:" }} {{ service.hours }}
@@ -27,4 +30,5 @@
     </div>
     <img [src]="service.image" alt="Course image" class="course-image" />
   </div>
+
 </div>

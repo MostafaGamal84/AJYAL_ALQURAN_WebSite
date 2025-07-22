@@ -1,45 +1,14 @@
-<div class="packages-container">
-  <div class="packages-header">
-    <div class="section-title">الباقات</div>
-    <div class="section-description">اختر الباقة المناسبة لك</div>
-  </div>
-
-  <div class="swiper-container">
-    <div class="swiper-wrapper">
-      <div class="swiper-slide" *ngFor="let package of packages">
-        <div class="package-item animate-on-scroll" appInViewport 
-          [ngClass]="{
-            'package-diamond': package.name.includes('الماسية'),
-            'package-fort': package.name.includes('الحصون'),
-            'package-bronze': package.name.includes('برونزية'),
-            'package-silver': package.name.includes('الفضية'),
-            'package-gold': package.name.includes('ذهبية')
-          }">
-          
-          <!-- اسم الباقة -->
-          <div class="package-title">{{ package.nameWithoutConcat }}</div>
-
-          <!-- السعر حسب الدولة -->
-         <div class="package-price">
-  <strong>{{ getPrice(package) }}</strong>
-</div>
-
-          <!-- مميزات الباقة -->
-          <ul class="package-features">
-            <li>الدقائق الكلية: {{ package.totalMinutes }}</li>
-            <li>نوع الاشتراك: {{ package.subscribeType.name }}</li>
-          </ul>
-
-          <!-- زر الاشتراك -->
-          <a href="https://ajyalalquran.somee.com/#/add-packages" target="_blank">
-            <button class="btn-select">اشترك الآن</button>
-          </a>
-        </div>
+<div class="swiper-container">
+  <div class="swiper-wrapper">
+    <div class="swiper-slide" *ngFor="let package of packages">
+      <div class="package-item">
+        <div class="package-title">{{ package.title }}</div>
+        <div class="package-body" [innerHTML]="formatContent(package.content)"></div>
       </div>
     </div>
-
-    <!-- أزرار التنقل في السلايدر -->
-    <div class="swiper-button-prev"></div>
-    <div class="swiper-button-next"></div>
   </div>
+
+  <div class="swiper-button-prev"></div>
+  <div class="swiper-button-next"></div>
+  <div class="swiper-pagination"></div>
 </div>

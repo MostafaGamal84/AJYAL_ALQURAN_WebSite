@@ -35,7 +35,7 @@
   .company-heading {
     font-size: 1.75rem;
     font-weight: bold;
-    color: #0d5ff9;
+    color: #ebebea;
     margin-bottom: 1.5rem;
   }
   
@@ -66,7 +66,7 @@
     right: 0;
     width: 3rem;
     height: 2px;
-    background: #0d5ff9;
+    background: #ebebea;
   }
   
   /* =====================
@@ -93,7 +93,7 @@
   }
   
   .quick-links a:hover {
-    color: #0d5ff9;
+    color:#ebebea;
     transform: translateX(-5px);
   }
   
@@ -114,7 +114,7 @@
     transition: color 0.3s ease;
   }
   .contact-info a:hover {
-    color: #0d5ff9;
+    color: #ebebea;
   }
   
   /* =====================
