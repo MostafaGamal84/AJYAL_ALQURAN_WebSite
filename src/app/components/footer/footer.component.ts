@@ -40,8 +40,8 @@ export class FooterComponent {
 
   contactInfo = {
     email: 'allhghayte8@gmail.com',
-    phone: '+201099381081',
-    address: '123 شارع الأعمال، المدينة، البلد'
+    phone: '201099381081+',
+    address: 'مصر'
   };
 
   /**
