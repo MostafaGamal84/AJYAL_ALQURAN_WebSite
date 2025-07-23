@@ -1,13 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { ContactService } from '../../services/contact.service';
 
 interface Course {
   courseNameAr: string;
+  courseNameEn: string;
   studentsCount: number;
   lessons: number;
   hours: number;
   instructorAr: string;
+  instructorEn: string;
   instructorsAr: string[];
+  instructorsEn: string[];
   image: string;
 }
 
@@ -19,9 +23,16 @@ interface Course {
   styleUrl: './our-services.component.css',
 })
 export class OurServicesComponent {
-  isArabic = true;
+  constructor(public contactService: ContactService) {
+  }
+  currentLang: string = 'ar';
+
+  ngOnInit(): void {
+    const savedLang = localStorage.getItem('lang');
+    this.currentLang = savedLang === 'en' ? 'en' : 'ar';
+  }
 
   services: Course[] = [
-   
+
   ];
 }

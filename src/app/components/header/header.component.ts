@@ -1,6 +1,7 @@
-import { Component ,HostListener  } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { ContactService } from '../../services/contact.service';
 
 
 @Component({
@@ -10,13 +11,23 @@ import { CommonModule } from '@angular/common';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
-  constructor(private router: Router) { }
-   isScrolled = false;
-
+  constructor(private router: Router,public contactService :ContactService) { 
+  }
+ currentLang:any
+ toggleLanguage() {
+    this.contactService.toggleLanguage();
+ this.currentLang = this.contactService.currentLang
+  }
+  isScrolled = false;
+  ngOnInit(): void {
+    // Set default language to Arabic
+    // this.contactService.SetLanguage();
+    this.currentLang = localStorage.getItem('lang') as 'ar' | 'en' || 'ar';
+  }
   @HostListener('window:scroll', [])
- onWindowScroll() {
+  onWindowScroll() {
     const scrollY = window.scrollY || document.documentElement.scrollTop || 0;
-    const triggerHeight = 100;  
+    const triggerHeight = 100;
     this.isScrolled = scrollY > triggerHeight;
   }
 
@@ -28,7 +39,7 @@ export class HeaderComponent {
    */
 
 
-   scrollTo(event: Event) {
+  scrollTo(event: Event) {
     event.preventDefault();
     const targetPath = (event.target as HTMLAnchorElement).getAttribute('routerLink');
     if (targetPath) {

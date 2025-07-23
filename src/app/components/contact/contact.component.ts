@@ -19,9 +19,14 @@ export class ContactComponent implements OnInit {
     private fb: FormBuilder,
     private contactService: ContactService
   ) {}
-
+ 
+    currentLang: string = 'ar';
+  
+   
   ngOnInit(): void {
     this.initForm();
+      const savedLang = localStorage.getItem('lang');
+      this.currentLang = savedLang === 'en' ? 'en' : 'ar';
   }
 
   private initForm(): void {

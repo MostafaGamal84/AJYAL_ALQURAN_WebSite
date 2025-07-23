@@ -54,6 +54,9 @@
 .scrolled .navbar-toggler {
   color: #333;
 }
+.scrolled .nav-link {
+  color: #333;
+}
 
 .navbar-toggler:focus {
   box-shadow: none;

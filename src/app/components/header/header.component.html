@@ -1,25 +1,53 @@
 <nav class="navbar navbar-expand-lg custom-navbar" [ngClass]="{ 'scrolled': isScrolled }">
   <div class="container-fluid">
+    <!-- Logo for small screens -->
     <a class="navbar-brand d-lg-none" href="#">
       <img src="https://ajyalalquran.somee.com/assets/images/Logo.jpg" alt="شعار أجيال القرآن" width="40" height="40"
         class="img-navbar" loading="lazy" />
     </a>
 
+    <!-- Hamburger button -->
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
+    <!-- Navigation Links -->
     <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
       <ul class="navbar-nav align-items-center">
-        <li class="nav-item"><a class="nav-link active" href="#about">من نحن</a></li>
-        <li class="nav-item"><a class="nav-link" href="#features">الميزات</a></li>
-        <li class="nav-item"><a class="nav-link" href="#our-services">خدماتنا</a></li>
-        <li class="nav-item"><a class="nav-link" href="#packages"> أقسام المدرسة</a></li>
-        <li class="nav-item"><a class="nav-link" href="#contact">اتصل بنا</a></li>
-        
-
+        <li class="nav-item">
+          <a class="nav-link active" href="#about">
+            {{ currentLang == 'ar' ? "من نحن" : "About Us" }}
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#features">
+            {{ currentLang == 'ar' ? "الميزات" : "Features" }}
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#our-services">
+            {{ currentLang == 'ar' ? "خدماتنا" : "Our Services" }}
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#packages">
+            {{ currentLang == 'ar' ? "أقسام المدرسة" : "School Sections" }}
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#contact">
+            {{ currentLang == 'ar' ? "اتصل بنا" : "Contact Us" }}
+          </a>
+        </li>
+        <li class="nav-item">
+          <button class="nav-link" (click)="toggleLanguage()">
+            🌐 {{ currentLang === 'ar' ? 'English' : 'العربية' }}
+          </button>
+        </li>
       </ul>
+
+      <!-- Logo for large screens -->
       <a class="navbar-brand d-none d-lg-block mx-3" href="#">
         <img src="https://ajyalalquran.somee.com/assets/images/Logo.jpg" alt="شعار أجيال القرآن" width="50" height="50"
           class="img-navbar" loading="lazy" />

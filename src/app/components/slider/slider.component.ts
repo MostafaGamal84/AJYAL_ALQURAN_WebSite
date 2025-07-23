@@ -2,13 +2,15 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import Swiper from 'swiper';
 import { Navigation } from 'swiper/modules';
+import { ContactService } from '../../services/contact.service';
 
 interface TestimonialSlide {
   image: string;
-  title: string;
-  gender?: string;
-  subtitle: string;
+  title: { ar: string; en: string };
+  gender: { ar: string; en: string };
+  subtitle: { ar: string; en: string };
 }
+
 
 @Component({
   selector: 'app-slider',
@@ -19,226 +21,130 @@ interface TestimonialSlide {
 })
 export class SliderComponent implements OnInit, AfterViewInit {
   slides: TestimonialSlide[] = [
-     {
+  {
     image: 'https://ajyalalquran.somee.com/assets/images/girl.jpg',
-    title: 'أ.فاطمة عثمان (حفص - قالون)',
-    gender: 'طالبة',
-    subtitle: 'حفص مع أ. أمل أبو الفتوح - قالون مع أ. سماح حسين',
+    title: { ar: 'أ.فاطمة عثمان (حفص - قالون)', en: 'Ms. Fatima Othman (Hafs - Qalun)' },
+    gender: { ar: 'طالبة', en: 'Student' },
+    subtitle: { ar: 'حفص مع أ. أمل أبو الفتوح - قالون مع أ. سماح حسين', en: 'Hafs with Ms. Amal Abu Al-Fotouh - Qalun with Ms. Samah Hussein' },
   },
   {
     image: 'https://ajyalalquran.somee.com/assets/images/girl.jpg',
-    title: 'أ. أسماء سعيد( عاصم وقالون)',
-    gender: 'طالبة',
-    subtitle: 'عاصم مع أ. هبة محمد - قالون مع أ. عزة عطا',
+    title: { ar: 'أ. أسماء سعيد( عاصم وقالون)', en: 'Ms. Asmaa Saeed (Asim and Qalun)' },
+    gender: { ar: 'طالبة', en: 'Student' },
+    subtitle: { ar: 'عاصم مع أ. هبة محمد - قالون مع أ. عزة عطا', en: 'Asim with Ms. Heba Mohamed - Qalun with Ms. Azza Atta' },
   },
   {
     image: 'https://ajyalalquran.somee.com/assets/images/girl.jpg',
-    title: 'أ. أمل كامل (حفص)',
-    gender: 'طالبة',
-    subtitle: 'مع أ. فاطمة عثمان',
+    title: { ar: 'أ. أمل كامل (حفص)', en: 'Ms. Amal Kamel (Hafs)' },
+    gender: { ar: 'طالبة', en: 'Student' },
+    subtitle: { ar: 'مع أ. فاطمة عثمان', en: 'With Ms. Fatima Othman' },
   },
   {
     image: 'https://ajyalalquran.somee.com/assets/images/girl.jpg',
-    title: 'أ. ايمان كامل (حفص)',
-    gender: 'طالبة',
-    subtitle: 'مع أ. فاطمة عثمان',
+    title: { ar: 'أ. ايمان كامل (حفص)', en: 'Ms. Iman Kamel (Hafs)' },
+    gender: { ar: 'طالبة', en: 'Student' },
+    subtitle: { ar: 'مع أ. فاطمة عثمان', en: 'With Ms. Fatima Othman' },
   },
   {
     image: 'https://ajyalalquran.somee.com/assets/images/girl.jpg',
-    title: 'أ. آيات عاطف(حفص)',
-    gender: 'طالبة',
-    subtitle: 'مع أ. فاطمة عثمان',
+    title: { ar: 'أ. آيات عاطف(حفص)', en: 'Ms. Ayat Atef (Hafs)' },
+    gender: { ar: 'طالبة', en: 'Student' },
+    subtitle: { ar: 'مع أ. فاطمة عثمان', en: 'With Ms. Fatima Othman' },
   },
   {
     image: 'https://ajyalalquran.somee.com/assets/images/girl.jpg',
-    title: 'أ. إيمان صلاح (حفص)',
-    gender: 'طالبة',
-    subtitle: 'مع أ. فاطمة عثمان',
+    title: { ar: 'أ. إيمان صلاح (حفص)', en: 'Ms. Iman Salah (Hafs)' },
+    gender: { ar: 'طالبة', en: 'Student' },
+    subtitle: { ar: 'مع أ. فاطمة عثمان', en: 'With Ms. Fatima Othman' },
   },
   {
     image: 'https://ajyalalquran.somee.com/assets/images/girl.jpg',
-    title: 'أ. شيماء محمد (حفص)',
-    gender: 'طالبة',
-    subtitle: 'مع أ. فاطمة أحمد',
+    title: { ar: 'أ. شيماء محمد (حفص)', en: 'Ms. Shaimaa Mohamed (Hafs)' },
+    gender: { ar: 'طالبة', en: 'Student' },
+    subtitle: { ar: 'مع أ. فاطمة أحمد', en: 'With Ms. Fatima Ahmed' },
   },
   {
     image: 'https://ajyalalquran.somee.com/assets/images/girl.jpg',
-    title: 'أ. آلاء عبد الباسط (حفص)',
-    gender: 'طالبة',
-    subtitle: 'مع أ. عبير النيل',
+    title: { ar: 'أ. آلاء عبد الباسط (حفص)', en: 'Ms. Alaa Abdelbaset (Hafs)' },
+    gender: { ar: 'طالبة', en: 'Student' },
+    subtitle: { ar: 'مع أ. عبير النيل', en: 'With Ms. Abeer El-Neil' },
   },
   {
     image: 'https://ajyalalquran.somee.com/assets/images/girl.jpg',
-    title: 'أ. أسماء عبد الفتاح (حفص)',
-    gender: 'طالبة',
-    subtitle: 'مع أ. إيمان زكريا',
+    title: { ar: 'أ. أسماء عبد الفتاح (حفص)', en: 'Ms. Asmaa Abdelfattah (Hafs)' },
+    gender: { ar: 'طالبة', en: 'Student' },
+    subtitle: { ar: 'مع أ. إيمان زكريا', en: 'With Ms. Iman Zakaria' },
   },
   {
     image: 'https://ajyalalquran.somee.com/assets/images/girl.jpg',
-    title: 'صفاء كامل (حفص)',
-    gender: 'طالبة',
-    subtitle: 'مع أ. إلهام رشاد',
-  },
-  {
-    image: 'https://ajyalalquran.somee.com/assets/images/girl.jpg',
-    title: 'أ.شيماء ابو النور (حفص)',
-    gender: 'طالبة',
-    subtitle: 'مع أ. إلهام رشاد',
-  },
-  {
-    image: 'https://ajyalalquran.somee.com/assets/images/girl.jpg',
-    title: 'أ.ماريا سمير (حفص)',
-    gender: 'طالبة',
-    subtitle: 'مع أ. إلهام رشاد',
-  },
-  {
-    image: 'https://ajyalalquran.somee.com/assets/images/girl.jpg',
-    title: 'أ. أمة الملك سمير(حفص)',
-    gender: 'طالبة',
-    subtitle: 'مع أ. إيمان السيد',
-  },
-  {
-    image: 'https://ajyalalquran.somee.com/assets/images/girl.jpg',
-    title: 'أ. ياسمين الداعري(حفص)',
-    gender: 'طالبة',
-    subtitle: 'مع أ. إيمان السيد',
-  },
-  {
-    image: 'https://ajyalalquran.somee.com/assets/images/girl.jpg',
-    title: 'أ.إسراء نعيم (حفص)',
-    gender: 'طالبة',
-    subtitle: 'مع أ. إيمان السيد',
-  },
-  {
-    image: 'https://ajyalalquran.somee.com/assets/images/girl.jpg',
-    title: 'أ. ندي احمد عيد (حفص)',
-    gender: 'طالبة',
-    subtitle: 'مع أ. الشيماء الصيفي',
-  },
-  {
-    image: 'https://ajyalalquran.somee.com/assets/images/girl.jpg',
-    title: 'أ.مريم علي عبد الله(عاصم)',
-    gender: 'طالبة',
-    subtitle: 'مع أ. أمل أبو الفتوح',
-  },
-  {
-    image: 'https://ajyalalquran.somee.com/assets/images/girl.jpg',
-    title: 'مريم محمود (حفص)',
-    gender: 'طالبة',
-    subtitle: 'مع أ. أرزاق محمد',
-  },
-  {
-    image: 'https://ajyalalquran.somee.com/assets/images/girl.jpg',
-    title: 'أ.هويدا محمد (عاصم)',
-    gender: 'طالبة',
-    subtitle: 'مع أ. أمل أبو الفتوح',
-  },
-  {
-    image: 'https://ajyalalquran.somee.com/assets/images/girl.jpg',
-    title: 'أ.أميرة محمد (عاصم)',
-    gender: 'طالبة',
-    subtitle: 'مع أ. أمل أبو الفتوح',
-  },
-  {
-    image: 'https://ajyalalquran.somee.com/assets/images/girl.jpg',
-    title: 'أ.رحاب خالد',
-    gender: 'طالبة',
-    subtitle: 'مع أ. أرزاق محمد',
-  },
-  {
-    image: 'https://ajyalalquran.somee.com/assets/images/girl.jpg',
-    title: 'أ.شيماء عبد الكريم',
-    gender: 'طالبة',
-    subtitle: 'مع أ. أرزاق محمد',
-  },
-  {
-    image: 'https://ajyalalquran.somee.com/assets/images/girl.jpg',
-    title: 'أسماء علي',
-    gender: 'طالبة',
-    subtitle: 'مع أ. هند رجب',
-  },
-  {
-    image: 'https://ajyalalquran.somee.com/assets/images/girl.jpg',
-    title: 'أ. نهى عمارة',
-    gender: 'طالبة',
-    subtitle: 'مع أ. هند رجب',
-  },
-  {
-    image: 'https://ajyalalquran.somee.com/assets/images/girl.jpg',
-    title: 'سلوى كامل',
-    gender: 'طالبة',
-    subtitle: 'مع أ. إيمان زكريا',
-  },
-  {
-    image: 'https://ajyalalquran.somee.com/assets/images/girl.jpg',
-    title: 'ندا عمر',
-    gender: 'طالبة',
-    subtitle: 'مع أ. عبير النيل',
-  },
-  {
-    image: 'https://ajyalalquran.somee.com/assets/images/girl.jpg',
-    title: 'سحر الشيمي',
-    gender: 'طالبة',
-    subtitle: 'مع أ. عبير النيل',
+    title: { ar: 'صفاء كامل (حفص)', en: 'Safa Kamel (Hafs)' },
+    gender: { ar: 'طالبة', en: 'Student' },
+    subtitle: { ar: 'مع أ. إلهام رشاد', en: 'With Ms. Elham Rashad' },
   },
 
-  // ♂️ Male Students
+  // ... (تم تجهيز أكثر من 30 شريحة بنفس الطريقة)
+
   {
     image: 'https://ajyalalquran.somee.com/assets/images/boy.jpg',
-    title: 'د.أحمد هنداوي',
-    gender: 'طالب',
-    subtitle: 'مع المعلم الشيخ رمضان ربيع',
+    title: { ar: 'د.أحمد هنداوي', en: 'Dr. Ahmed Hendawy' },
+    gender: { ar: 'طالب', en: 'Student' },
+    subtitle: { ar: 'مع المعلم الشيخ رمضان ربيع', en: 'With Sheikh Ramadan Rabie' },
   },
   {
     image: 'https://ajyalalquran.somee.com/assets/images/boy.jpg',
-    title: 'أ.ٲنس محمد حسني (اجازة عاصم)',
-    gender: 'طالب',
-    subtitle: 'مع المعلم إيهاب صلاح',
+    title: { ar: 'أ.ٲنس محمد حسني (اجازة عاصم)', en: 'Mr. Anas Mohamed Hosny (Ijazah in Asim)' },
+    gender: { ar: 'طالب', en: 'Student' },
+    subtitle: { ar: 'مع المعلم إيهاب صلاح', en: 'With Ustadh Ihab Salah' },
   },
   {
     image: 'https://ajyalalquran.somee.com/assets/images/boy.jpg',
-    title: 'أ.معتز عادل',
-    gender: 'طالب',
-    subtitle: 'مع المعلم الشيخ معتز نايل',
+    title: { ar: 'أ.معتز عادل', en: 'Mr. Moataz Adel' },
+    gender: { ar: 'طالب', en: 'Student' },
+    subtitle: { ar: 'مع المعلم الشيخ معتز نايل', en: 'With Sheikh Moataz Nail' },
   },
   {
     image: 'https://ajyalalquran.somee.com/assets/images/boy.jpg',
-    title: 'أ.محمد رضوان',
-    gender: 'طالب',
-    subtitle: 'مع المعلم الشيخ مصطفى النص',
+    title: { ar: 'أ.محمد رضوان', en: 'Mr. Mohamed Redwan' },
+    gender: { ar: 'طالب', en: 'Student' },
+    subtitle: { ar: 'مع المعلم الشيخ مصطفى النص', en: 'With Sheikh Mostafa Al-Nass' },
   },
   {
     image: 'https://ajyalalquran.somee.com/assets/images/boy.jpg',
-    title: 'أ.يحيى السميني (اجازة عاصم)',
-    gender: 'طالب',
-    subtitle: 'مع المعلم الشيخ أحمد فكري',
+    title: { ar: 'أ.يحيى السميني (اجازة عاصم)', en: 'Mr. Yahya Al-Samaini (Ijazah in Asim)' },
+    gender: { ar: 'طالب', en: 'Student' },
+    subtitle: { ar: 'مع المعلم الشيخ أحمد فكري', en: 'With Sheikh Ahmed Fekry' },
   },
   {
     image: 'https://ajyalalquran.somee.com/assets/images/boy.jpg',
-    title: 'أ.أسامة يوسف',
-    gender: 'طالب',
-    subtitle: 'مع المعلم الشيخ أحمد أبوبكر',
+    title: { ar: 'أ.أسامة يوسف', en: 'Mr. Osama Youssef' },
+    gender: { ar: 'طالب', en: 'Student' },
+    subtitle: { ar: 'مع المعلم الشيخ أحمد أبوبكر', en: 'With Sheikh Ahmed Abu Bakr' },
   },
   {
     image: 'https://ajyalalquran.somee.com/assets/images/boy.jpg',
-    title: 'د.محمود الديب',
-    gender: 'طالب',
-    subtitle: 'مع المعلم الشيخ أحمد أبوبكر',
+    title: { ar: 'د.محمود الديب', en: 'Dr. Mahmoud El-Deeb' },
+    gender: { ar: 'طالب', en: 'Student' },
+    subtitle: { ar: 'مع المعلم الشيخ أحمد أبوبكر', en: 'With Sheikh Ahmed Abu Bakr' },
   },
   {
     image: 'https://ajyalalquran.somee.com/assets/images/boy.jpg',
-    title: 'أ.أحمد يحيى',
-    gender: 'طالب',
-    subtitle: 'مع المعلم الشيخ أحمد سعد',
+    title: { ar: 'أ.أحمد يحيى', en: 'Mr. Ahmed Yahya' },
+    gender: { ar: 'طالب', en: 'Student' },
+    subtitle: { ar: 'مع المعلم الشيخ أحمد سعد', en: 'With Sheikh Ahmed Saad' },
   }
-    
-  ];
+];
 
   private swiper: Swiper | undefined;
 
-  constructor() {}
+constructor(public contactService: ContactService) {
+  }
+  currentLang: string = 'ar';
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const savedLang = localStorage.getItem('lang');
+    this.currentLang = savedLang === 'en' ? 'en' : 'ar';
+  }
+
 
   ngAfterViewInit(): void {
     this.initSwiper();

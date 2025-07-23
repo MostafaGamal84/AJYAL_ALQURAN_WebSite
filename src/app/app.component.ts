@@ -9,8 +9,9 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { OurServicesComponent } from './components/our-services/our-services.component';
 import { PackagesComponent } from './components/packages/packages.component';
- import { AppInViewportDirective } from './directives/app-in-viewport.directive';
- 
+import { AppInViewportDirective } from './directives/app-in-viewport.directive';
+import { ContactService } from './services/contact.service';
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -25,7 +26,7 @@ import { PackagesComponent } from './components/packages/packages.component';
     OurServicesComponent,
     PackagesComponent,
     AppInViewportDirective
-      
+
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
@@ -33,6 +34,13 @@ import { PackagesComponent } from './components/packages/packages.component';
 })
 export class AppComponent {
   title = 'أجيال القرآن';
-  
+constructor(public contactService :ContactService) { 
+  }
+ngOnInit(): void {
+  const savedLang = localStorage.getItem('lang');
+  this.contactService.currentLang = savedLang === 'en' ? 'en' : 'ar';
+  document.documentElement.dir =  this.contactService.currentLang === 'ar' ? 'rtl' : 'ltr';
+}
+ 
 }
 

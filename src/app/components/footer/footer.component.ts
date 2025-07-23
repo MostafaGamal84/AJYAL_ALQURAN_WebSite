@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { ContactService } from '../../services/contact.service';
 
 @Component({
   selector: 'app-footer',
@@ -10,10 +11,32 @@ import { RouterModule } from '@angular/router';
   styleUrl: './footer.component.css'
 })
 export class FooterComponent {
-  currentYear = new Date().getFullYear();
-  companyName = 'أجيال القرآن';
+   constructor(public contactService: ContactService) {
+    }
+    currentLang: string = 'ar';
   
-  socialLinks = [
+    ngOnInit(): void {
+      const savedLang = localStorage.getItem('lang');
+      this.currentLang = savedLang === 'en' ? 'en' : 'ar';
+    }
+     currentYear = new Date().getFullYear();
+companyName: Record<'ar' | 'en', string> = {
+  ar: 'أجيال القرآن',
+  en: 'Ajyal Al-Quran'
+};
+
+quickLinks = [
+  { path: '/about', textAr: 'من نحن', textEn: 'About Us' },
+  { path: '/features', textAr: 'الميزات', textEn: 'Features' },
+  { path: '/our-services', textAr: 'خدماتنا', textEn: 'Our Services' },
+  { path: '/contact', textAr: 'اتصل بنا', textEn: 'Contact Us' }
+];
+
+contactInfo = {
+  email: 'allhghayte8@gmail.com',
+  phone: '+201099381081'
+};
+   socialLinks = [
   {
     icon: 'youtube',
     url: 'https://youtube.com/@ajyal_elpraan?si=DtyVJ8hdBoWbC_1V',
@@ -30,20 +53,6 @@ export class FooterComponent {
     ariaLabel: 'انضم إلى قناتنا على تيليجرام'
   }
 ];
-
-  quickLinks = [
-    { path: '/about', text: 'من نحن' },
-    { path: '/features', text: 'الميزات' },
-    { path: '/our-services', text: 'خدماتنا' },
-    { path: '/contact', text: 'اتصل بنا' }
-  ];
-
-  contactInfo = {
-    email: 'allhghayte8@gmail.com',
-    phone: '201099381081+',
-    address: 'مصر'
-  };
-
   /**
    * Scroll to a section when clicking a navigation link.
    * @param event - The click event from the navigation link.
