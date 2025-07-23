@@ -9,7 +9,18 @@ import { Component, HostListener } from '@angular/core';
 })
 export class BackToTopComponent {
   showButton: boolean = false;
+audio = new Audio('https://ajyalalquran.somee.com/assets/voice.mp3');
+isPlaying = false;
 
+playAudio() {
+  this.audio.loop = true;
+  this.audio.volume = 0.5;
+  this.audio.play().then(() => {
+    this.isPlaying = true;
+  }).catch((err) => {
+    console.warn('Playback failed:', err);
+  });
+}
   // Listen for the window's scroll event
   @HostListener('window:scroll', [])
   onWindowScroll() {

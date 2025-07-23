@@ -33,13 +33,6 @@ import { PackagesComponent } from './components/packages/packages.component';
 })
 export class AppComponent {
   title = 'أجيال القرآن';
-    ngOnInit(): void {
-     const audio = new Audio('https://ajyalalquran.somee.com/assets/voice.mp3');
-    audio.loop = true;
-    audio.volume = 0.5; // adjust volume as needed
-    audio.play().catch(err => {
-      console.warn('Autoplay was blocked or failed.', err);
-    });
-  }
+  
 }
 
