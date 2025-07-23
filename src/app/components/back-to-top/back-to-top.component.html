@@ -5,6 +5,14 @@
   <a href="https://wa.me/+201099381081" target="_blank" class="whatsapp-btn" aria-label="تواصل معنا عبر واتساب">
     <i class="fab fa-whatsapp"></i>
   </a>
-  <button  *ngIf="!isPlaying"  (click)="playAudio()" class="play-btn">🎵 تشغيل الصوت</button>
+  <div class="audio-control">
+  <button (click)="toggleAudio()" class="audio-btn">
+    {{ isPlaying ? '⏸️ إيقاف' : '▶️ تشغيل' }}
+  </button>
+
+  <button (click)="toggleMute()" class="audio-btn mute-btn">
+    {{ isMuted ? '🔇' : '🔊' }}
+  </button>
+</div>
   
 </div>
