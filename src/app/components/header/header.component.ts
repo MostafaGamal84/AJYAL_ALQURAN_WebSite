@@ -18,7 +18,6 @@ export class HeaderComponent {
     const scrollY = window.scrollY || document.documentElement.scrollTop || 0;
     const triggerHeight = 100;  
     this.isScrolled = scrollY > triggerHeight;
-    console.log('ScrollY:', scrollY, 'isScrolled:', this.isScrolled);
   }
 
 

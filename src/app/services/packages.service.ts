@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable , of} from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
@@ -14,4 +14,14 @@ export class PackagesService {
   getPackages(): Observable<any[]> {
   return this.http.get<any[]>(this.apiUrl);
 }
+
+sendEmail(email: string, name: string, message: string, phone: string): Observable<any> {
+    const params = new HttpParams()
+      .set('email', email)
+      .set('name', name)
+      .set('message', message)
+      .set('phone', phone);
+
+    return this.http.post(`${this.apiUrl}/SendEmailForNewRequests`, null, { params });
+  }
 }

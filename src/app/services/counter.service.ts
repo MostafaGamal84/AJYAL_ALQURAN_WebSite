@@ -29,7 +29,7 @@ export class CounterService {
     return [
       {
         label: 'طلابنا السعداء',
-        target: 1900,
+        target: 1000,
         icon: 'fa-solid fa-users',
         count: 0,
         duration: 2000,
@@ -43,14 +43,14 @@ export class CounterService {
       },
       {
         label: 'الشركات التي تثق بنا',
-        target: 200,
+        target: 7,
         icon: 'fa-solid fa-building',
         count: 0,
         duration: 1800,
       },
       {
         label: 'الدول التي وصلنا إليها',
-        target: 50,
+        target: 23,
         icon: 'fa-solid fa-globe',
         count: 0,
         duration: 1200,

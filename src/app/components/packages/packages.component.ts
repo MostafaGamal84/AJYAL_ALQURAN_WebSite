@@ -232,13 +232,13 @@ export class PackagesComponent implements OnInit, AfterViewInit {
       slidesPerView: 1,
       spaceBetween: 20,
        centeredSlides: false,
-      loop: true,
+      loop: false,
 
-      autoplay: {
-        delay: 1000, // ← يمر كل ثانية
-        disableOnInteraction: false, // ← لا يتوقف إذا لمس المستخدم السلايدر
-        pauseOnMouseEnter: true      // ← يتوقف عند المرور بالماوس (اختياري)
-      },
+      // autoplay: {
+      //   delay: 1000, // ← يمر كل ثانية
+      //   disableOnInteraction: false, // ← لا يتوقف إذا لمس المستخدم السلايدر
+      //   pauseOnMouseEnter: true      // ← يتوقف عند المرور بالماوس (اختياري)
+      // },
 
       pagination: {
         el: '.swiper-pagination',

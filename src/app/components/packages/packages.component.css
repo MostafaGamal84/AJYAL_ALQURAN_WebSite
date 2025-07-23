@@ -7,7 +7,17 @@
   overflow-x: hidden;
   max-width: 100vw;
 }
-
+h1,
+  h3.title {
+    text-align: center;
+    /* color: #0d5ff9; */
+    font-weight: 600;
+    margin: 10px 0;
+  }
+  
+  h1 {
+    font-size: 22px;
+  }
 /* عنوان السلايدر */
 .packages-header {
   text-align: center;
