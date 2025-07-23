@@ -15,10 +15,12 @@ isPlaying = false;
 playAudio() {
   this.audio.loop = true;
   this.audio.volume = 0.5;
+  console.log('🔊 Attempting to play audio...');
   this.audio.play().then(() => {
     this.isPlaying = true;
   }).catch((err) => {
     console.warn('Playback failed:', err);
+    
   });
 }
   // Listen for the window's scroll event
