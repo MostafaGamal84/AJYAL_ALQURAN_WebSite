@@ -8,14 +8,14 @@
 
   
   
-  .services-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
-    padding: 20px;
-    max-width: 100%;
-    margin-top: 20px;
-  }
+ .services-container {
+  display: flex;
+  justify-content: center;  /* يجعل العنصر في منتصف العرض */
+  align-items: center;      /* يجعله في منتصف الارتفاع إذا كان مطلوبًا */
+  padding: 20px;
+  max-width: 100%;
+  margin-top: 20px;
+}
   
   h2,
   h3.title {
@@ -69,7 +69,7 @@
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 12px;
-    width: 250px;
+    width: 457px;
     display: flex;
     flex-direction: column;
     align-items: center;

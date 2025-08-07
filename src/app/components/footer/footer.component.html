@@ -12,16 +12,20 @@
     </div>
 
     <!-- Quick Links -->
-    <div class="footer-section quick-links">
-      <h4>{{ currentLang === 'ar' ? 'روابط سريعة' : 'Quick Links' }}</h4>
-      <ul>
-        <li *ngFor="let link of quickLinks">
-          <a class="nav-link" [routerLink]="link.path" routerLinkActive="active" (click)="scrollTo($event)">
-            {{ currentLang === 'ar' ? link.textAr : link.textEn }}
-          </a>
-        </li>
-      </ul>
-    </div>
+  <div class="footer-section quick-links">
+  <h4>{{ currentLang === 'ar' ? 'روابط سريعة' : 'Quick Links' }}</h4>
+  <ul>
+    <li *ngFor="let link of quickLinks">
+      <a class="nav-link"
+         [routerLink]="link.path"
+         routerLinkActive="active"
+         (click)="scrollTo($event)"
+         [attr.data-target]="link.path">
+        {{ currentLang === 'ar' ? link.textAr : link.textEn }}
+      </a>
+    </li>
+  </ul>
+</div>
 
     <!-- Contact Info -->
     <div class="footer-section contact-info">

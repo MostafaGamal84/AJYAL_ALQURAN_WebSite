@@ -8,7 +8,7 @@ export interface CounterConfig {
 }
 
 export interface CounterItem {
-  label: string;
+  label: { ar: string; en: string };
   target: number;
   icon: string;
   count: number;
@@ -26,37 +26,46 @@ export class CounterService {
   private readonly DEFAULT_ROOT_MARGIN = '0px 0px -10% 0px';
 
   getCounters(): CounterItem[] {
-    return [
-      {
-        label: 'طلابنا السعداء',
-        target: 1000,
-        icon: 'fa-solid fa-users',
-        count: 0,
-        duration: 2000,
+  return [
+    {
+      label: {
+        ar: 'طلابنا السعداء',
+        en: 'Happy Students'
       },
-      {
-        label: 'الجوائز المحققة',
-        target: 500,
-        icon: 'fa-solid fa-trophy',
-        count: 0,
-        duration: 1500,
+      target: 1000,
+      icon: 'fa-solid fa-users',
+      count: 0
+    },
+    {
+      label: {
+        ar: 'الجوائز المحققة',
+        en: 'Awards Won'
       },
-      {
-        label: 'الشركات التي تثق بنا',
-        target: 7,
-        icon: 'fa-solid fa-building',
-        count: 0,
-        duration: 1800,
+      target: 500,
+      icon: 'fa-solid fa-trophy',
+      count: 0
+    },
+    {
+      label: {
+        ar: 'الشركات التي تثق بنا',
+        en: 'Trusted Companies'
       },
-      {
-        label: 'الدول التي وصلنا إليها',
-        target: 23,
-        icon: 'fa-solid fa-globe',
-        count: 0,
-        duration: 1200,
+      target: 7,
+      icon: 'fa-solid fa-building',
+      count: 0
+    },
+    {
+      label: {
+        ar: 'الدول التي وصلنا إليها',
+        en: 'Countries Reached'
       },
-    ];
-  }
+      target: 23,
+      icon: 'fa-solid fa-globe',
+      count: 0
+    }
+  ];
+}
+
 
   createIntersectionObserver(
     callback: IntersectionObserverCallback,

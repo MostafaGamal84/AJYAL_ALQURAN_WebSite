@@ -10,6 +10,7 @@ import {
   ChangeDetectorRef,
 } from '@angular/core';
 import { CounterService, CounterItem } from '../../services/counter.service';
+import { ContactService } from '../../services/contact.service';
 
 @Component({
   selector: 'app-counter',
@@ -26,13 +27,20 @@ export class CounterComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(
     private counterService: CounterService,
-    private cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef,
+    public contactService: ContactService
   ) {
     this.counters = this.counterService.getCounters();
   }
+ 
+      currentLang: string = 'ar';
+    
+  
 
   ngOnInit(): void {
     this.setupIntersectionObserver();
+        const savedLang = localStorage.getItem('lang');
+        this.currentLang = savedLang === 'en' ? 'en' : 'ar';
   }
 
   ngAfterViewInit(): void {
@@ -68,6 +76,8 @@ export class CounterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.observer?.observe(element.nativeElement);
     });
   }
+
+
 
   private startSingleCounter(index: number): void {
     const counter = this.counters[index];
@@ -114,7 +124,8 @@ export class CounterComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  formatNumber(value: number): string {
-    return this.counterService.formatNumber(value);
-  }
+ formatNumber(value: number): string {
+  const locale = this.currentLang === 'ar' ? 'en' : 'en'; // force English numerals
+  return new Intl.NumberFormat(locale).format(value);
+}
 }

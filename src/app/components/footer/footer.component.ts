@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { ContactService } from '../../services/contact.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { ContactService } from '../../services/contact.service';
   styleUrl: './footer.component.css'
 })
 export class FooterComponent {
-   constructor(public contactService: ContactService) {
+   constructor(public contactService: ContactService,private router:Router) {
     }
     currentLang: string = 'ar';
   
@@ -57,13 +57,19 @@ contactInfo = {
    * Scroll to a section when clicking a navigation link.
    * @param event - The click event from the navigation link.
    */
-  scrollTo(event: Event): void {
-    event.preventDefault();
-    const element = event.target as HTMLAnchorElement;
-    const targetId = element.getAttribute('routerLink')?.replace('/', '');
-    if (targetId) {
-      const targetElement = document.getElementById(targetId);
-      targetElement?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+scrollTo(event: Event): void {
+  event.preventDefault();
+  const element = event.target as HTMLElement;
+  const targetId = element.getAttribute('data-target')?.replace('/', '');
+
+  if (targetId) {
+    const targetElement = document.getElementById(targetId);
+    if (targetElement) {
+      targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      // Fallback: navigate to the route if the element isn't in view
+      this.router.navigate([`/${targetId}`]);
     }
   }
+}
 }
