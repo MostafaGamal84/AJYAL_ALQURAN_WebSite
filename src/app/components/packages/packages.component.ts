@@ -1,29 +1,42 @@
+// packages.component.ts
 import { CommonModule } from '@angular/common';
-import {
-  AfterViewInit,
-  ChangeDetectorRef,
-  Component,
-  OnInit
-} from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import Swiper from 'swiper';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import { ContactService } from '../../services/contact.service';
+
 Swiper.use([Navigation, Pagination, Autoplay]);
+
+type PackageItem = {
+  titleAr: string;
+  titleEn: string;
+  contentAr: string;
+  contentEn: string;
+};
+
 @Component({
   selector: 'app-packages',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './packages.component.html',
-  styleUrl: './packages.component.css',
+  styleUrls: ['./packages.component.css'],
 })
-export class PackagesComponent implements OnInit, AfterViewInit {
+export class PackagesComponent implements OnInit, AfterViewInit, OnDestroy {
+  constructor(
+    private cdr: ChangeDetectorRef,
+    private http: HttpClient,
+    public contactService: ContactService
+  ) {}
 
-packages = [
-  {
-  titleAr: '✨ قسم الحفظ المُيسَّر في أجيال القرآن ✨',
-  titleEn: '✨ Easy Memorization Section at Ajyal Al-Quran ✨',
-  contentAr: `🔸 التعريف:
+  currentLang: 'ar' | 'en' = 'ar';
+  swiper: Swiper | null = null;
+
+  packages: PackageItem[] = [
+    {
+      titleAr: '✨ قسم الحفظ المُيسَّر في أجيال القرآن ✨',
+      titleEn: '✨ Easy Memorization Section at Ajyal Al-Quran ✨',
+      contentAr: `🔸 التعريف:
 قسم الحفظ المُيسَّر هو أحد أكثر الأقسام انتشارًا في أجيال القرآن، لكونه الأنسب لأغلب الطلاب، ويُعنى بحفظ القرآن الكريم بطريقة مريحة ومتدرجة.
 
 🔹 الفئة المستهدفة:
@@ -53,8 +66,7 @@ packages = [
 4. الماضي الأبعد
 
 🧪 كما تُجرى اختبارات تقويمية دورية للاطمئنان على جودة الحفظ.`,
-
-  contentEn: `🔸 Definition:
+      contentEn: `🔸 Definition:
 The Easy Memorization Section is one of the most popular sections at Ajyal Al-Quran. It suits most students and focuses on relaxed, gradual Quran memorization.
 
 🔹 Target Audience:
@@ -84,13 +96,12 @@ The session is divided into four main components:
 4. Long-term review
 
 🧪 Regular assessment tests are conducted to ensure memorization quality.`
-},
+    },
 
-
-  {
-  titleAr: '🎙 قسم الترديد 🎙',
-  titleEn: '🎙 Repetition Section 🎙',
-  contentAr: `🔸 التعريف:
+    {
+      titleAr: '🎙 قسم الترديد 🎙',
+      titleEn: '🎙 Repetition Section 🎙',
+      contentAr: `🔸 التعريف:
 قسم الترديد يعتمد على أسلوب التلقين والتكرار، حيث يُردّد الطالب الآيات خلف المعلم عدة مرات، لترسيخ الحفظ عبر الذاكرة السمعية، مع تصحيح مخارج الحروف.
 
 🔹 الفئة المستهدفة:
@@ -117,9 +128,8 @@ The session is divided into four main components:
 🎧 الوسائل المساعدة:
 - تسجيلات صوتية  
 - بطاقات تلوين  
-- سبورة ذكية`
-,
-  contentEn: `🔸 Definition:
+- سبورة ذكية`,
+      contentEn: `🔸 Definition:
 The Repetition Section relies on the method of vocal prompting and repetition. The student repeats the verses after the teacher several times to reinforce memorization through auditory memory, along with articulation correction.
 
 🔹 Target Audience:
@@ -147,13 +157,12 @@ The Repetition Section relies on the method of vocal prompting and repetition. T
 - Audio recordings  
 - Coloring cards  
 - Smart board`
-},
+    },
 
-
- {
-  titleAr: '🧱 قسم التأسيس في أجيال القرآن 🧱',
-  titleEn: '🧱 Foundation Section at Ajyal Al-Quran 🧱',
-  contentAr: `🔸 التعريف:
+    {
+      titleAr: '🧱 قسم التأسيس في أجيال القرآن 🧱',
+      titleEn: '🧱 Foundation Section at Ajyal Al-Quran 🧱',
+      contentAr: `🔸 التعريف:
 قسم تأسيسي يهدف إلى تعليم الحروف ، ومخارجها ، وقواعد التهجي، ليتمكن الطالب من القراءة الصحيحة من المصحف.
 
 🔹 الفئة المستهدفة:
@@ -181,9 +190,8 @@ The Repetition Section relies on the method of vocal prompting and repetition. T
 - بطاقات تعليمية.  
 - كتب تأسيسية متخصصة.  
 - تطبيقات تفاعلية.  
-- فيديوهات مبسطة.`
-,
-  contentEn: `🔸 Definition:
+- فيديوهات مبسطة.`,
+      contentEn: `🔸 Definition:
 A foundational section that focuses on teaching Arabic letters, articulation points, and decoding rules to enable students to read the Quran correctly from the Mushaf.
 
 🔹 Target Audience:
@@ -212,13 +220,12 @@ A foundational section that focuses on teaching Arabic letters, articulation poi
 - Specialized foundational books  
 - Interactive applications  
 - Simplified educational videos`
-}
-,
+    },
 
-  {
-  titleAr: '🛡 قسم الحُصون في أجيال القرآن 🛡',
-  titleEn: '🛡 Fortresses Section at Ajyal Al-Quran 🛡',
-  contentAr: `🔸 التعريف:
+    {
+      titleAr: '🛡 قسم الحُصون في أجيال القرآن 🛡',
+      titleEn: '🛡 Fortresses Section at Ajyal Al-Quran 🛡',
+      contentAr: `🔸 التعريف:
 قسم مخصص لبناء الحفظ المنظّم والمتقن من خلال منهجية "الحصون الخمسة".
 
 🔹 الفئة المستهدفة:
@@ -249,9 +256,8 @@ A foundational section that focuses on teaching Arabic letters, articulation poi
 
 🎖 الوسائل والأدوات المساعدة:
 - جدول متابعة دقيق.  
-- اختبار شهري لتقويم الأداء.`
-,
-  contentEn: `🔸 Definition:
+- اختبار شهري لتقويم الأداء.`,
+      contentEn: `🔸 Definition:
 A dedicated section for structured and refined memorization using the "Five Fortresses" methodology.
 
 🔹 Target Audience:
@@ -283,13 +289,12 @@ A dedicated section for structured and refined memorization using the "Five Fort
 🎖 Tools & Aids:
 - Detailed follow-up schedule  
 - Monthly performance assessment test`
-}
-,
+    },
 
- {
-  titleAr: '🌿 نظام الحفظ والتدبر في أجيال القرآن 🌿',
-  titleEn: '🌿 Memorization & Reflection System at Ajyal Al-Quran 🌿',
-  contentAr: `🔸 التعريف:
+    {
+      titleAr: '🌿 نظام الحفظ والتدبر في أجيال القرآن 🌿',
+      titleEn: '🌿 Memorization & Reflection System at Ajyal Al-Quran 🌿',
+      contentAr: `🔸 التعريف:
 نظام يجمع بين الحفظ والتدبر، من خلال فهم المعاني ومفردات القرآن قبل حفظه مما يعزز الوعي القرآني.
 
 🔹 الفئة المستهدفة:
@@ -314,9 +319,8 @@ A dedicated section for structured and refined memorization using the "Five Fort
 🧰 الوسائل المساعدة:
 - دفتر تدبر لتسجيل الفوائد.  
 - خرائط ذهنية.  
-- أنشطة تفاعلية لتعزيز الفهم.`
-,
-  contentEn: `🔸 Definition:
+- أنشطة تفاعلية لتعزيز الفهم.`,
+      contentEn: `🔸 Definition:
 A system that integrates memorization with reflection by understanding Quranic meanings and vocabulary before memorizing, enhancing Quranic awareness.
 
 🔹 Target Audience:
@@ -342,13 +346,12 @@ A system that integrates memorization with reflection by understanding Quranic m
 - Reflection journal for key takeaways  
 - Mind maps  
 - Interactive activities to reinforce understanding`
-}
-,
+    },
 
-  {
-  titleAr: '📜 قسم الإجازات والقراءات في أجيال القرآن 📜',
-  titleEn: '📜 Ijazah & Qira’at Section at Ajyal Al-Quran 📜',
-  contentAr: `🔸 التعريف:
+    {
+      titleAr: '📜 قسم الإجازات والقراءات في أجيال القرآن 📜',
+      titleEn: '📜 Ijazah & Qira’at Section at Ajyal Al-Quran 📜',
+      contentAr: `🔸 التعريف:
 قسم متخصص يُعنى بتأهيل الطلاب لنيل الإجازة بالسند المتصل إلى النبي ﷺ في حفظ أو تلاوة القرآن الكريم، بإشراف نخبة من المجيزين والمقرئين.
 
 🔹 الفئة المستهدفة:
@@ -369,9 +372,8 @@ A system that integrates memorization with reflection by understanding Quranic m
 
 📌 ملاحظات:
 - الإجازات تُمنح وفق ضوابط دقيقة ومعايير أداء محددة.  
-- تُوثق الإجازات إلكترونيًا.`
-,
-  contentEn: `🔸 Definition:
+- تُوثق الإجازات إلكترونيًا.`,
+      contentEn: `🔸 Definition:
 A specialized section focused on qualifying students to earn a certified Quranic Ijazah (license) with a connected chain to the Prophet Muhammad ﷺ, supervised by expert certified scholars.
 
 🔹 Target Audience:
@@ -393,20 +395,11 @@ A specialized section focused on qualifying students to earn a certified Quranic
 📌 Notes:
 - Ijazahs are granted according to strict criteria and performance standards  
 - All certifications are digitally archived`
-}
+    }
+  ];
 
-];
-
-
-  swiper: Swiper | null = null;
-
-  constructor(private cdr: ChangeDetectorRef, private http: HttpClient,public contactService :ContactService) {}
-
-  currentLang: string = 'ar';
-
- 
   ngOnInit(): void {
-     const savedLang = localStorage.getItem('lang');
+    const savedLang = localStorage.getItem('lang');
     this.currentLang = savedLang === 'en' ? 'en' : 'ar';
   }
 
@@ -414,69 +407,91 @@ A specialized section focused on qualifying students to earn a certified Quranic
     this.initializeSwiper();
   }
 
+  ngOnDestroy(): void {
+    this.swiper?.destroy(true, true);
+    this.swiper = null;
+  }
+
   initializeSwiper(): void {
-  setTimeout(() => {
-    if (this.swiper) {
-      this.swiper.destroy(true, true);
+    setTimeout(() => {
+      this.swiper?.destroy(true, true);
+      this.swiper = new Swiper('.swiper-container', {
+        slidesPerView: 1,
+        spaceBetween: 20,
+        centeredSlides: false,
+        loop: false,
+        pagination: { el: '.swiper-pagination', clickable: true },
+        navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+        breakpoints: {
+          640: { slidesPerView: 1 },
+          768: { slidesPerView: 2 },
+          1024: { slidesPerView: 3 }
+        }
+      });
+    }, 100);
+  }
+
+  /** يحوِّل النص الخام إلى HTML منسّق بعناوين فرعية وقوائم */
+formatContent(raw: string, lang: 'ar' | 'en'): string {
+  const headingMap: Record<string, { ar: string; en: string }> = {
+    '🔸': { ar: 'التعريف', en: 'Definition' },
+    '🔹': { ar: 'الفئة المستهدفة', en: 'Target Audience' },
+    '🎯': { ar: 'الأهداف', en: 'Objectives' },
+    '🧩': { ar: 'تقسيم الحلقة', en: 'Class Structure' },
+    '📌': { ar: 'المحتوى', en: 'Content' },
+    '⏱': { ar: 'المدة', en: 'Duration' },
+    '🎧': { ar: 'الوسائل المساعدة', en: 'Support Tools' },
+    '🎒': { ar: 'الوسائل التعليمية', en: 'Educational Tools' },
+    '🧰': { ar: 'أدوات مساعدة', en: 'Aids' },
+    '📓': { ar: 'واجب تطبيقي', en: 'Applied Homework' },
+    '🗣': { ar: 'التسميع والمراجعة', en: 'Recitation & Review' },
+    '🔊': { ar: 'الحفظ', en: 'Memorization' },
+    '🧠': { ar: 'التدبر', en: 'Reflection' },
+    '📖': { ar: 'التهيئة', en: 'Preparation' },
+    '🎖': { ar: 'أدوات التقييم', en: 'Evaluation Tools' },
+    '🧱': { ar: 'الحصون', en: 'Fortresses' },
+  };
+
+  const lines = raw.split('\n').map(l => l.trim());
+  let html: string[] = [];
+  let inUl = false;
+  let inOl = false;
+
+  const closeLists = () => {
+    if (inUl) { html.push('</ul>'); inUl = false; }
+    if (inOl) { html.push('</ol>'); inOl = false; }
+  };
+
+  for (const line of lines) {
+    if (!line) { closeLists(); continue; }
+
+    const key = line.slice(0, 2);
+    if (headingMap[key]) {
+      closeLists();
+      if (key === '⏱') {
+        const text = line.replace('⏱', '').trim();
+        html.push(`<div class="section-sub"><strong>⏱ ${headingMap[key][lang]}:</strong> ${text}</div>`);
+      } else {
+        html.push(`<h4 class="section-heading">${headingMap[key][lang]}:</h4>`);
+      }
+      continue;
     }
 
-    this.swiper = new Swiper('.swiper-container', {
-      slidesPerView: 1,
-      spaceBetween: 20,
-       centeredSlides: false,
-      loop: false,
+    if (/^[-•]\s+/.test(line)) {
+      if (!inUl) { closeLists(); html.push('<ul>'); inUl = true; }
+      html.push(`<li>${line.replace(/^[-•]\s+/, '')}</li>`);
+      continue;
+    }
 
-      // autoplay: {
-      //   delay: 1000, // ← يمر كل ثانية
-      //   disableOnInteraction: false, // ← لا يتوقف إذا لمس المستخدم السلايدر
-      //   pauseOnMouseEnter: true      // ← يتوقف عند المرور بالماوس (اختياري)
-      // },
+    if (/^\d+\.\s+/.test(line)) {
+      if (!inOl) { closeLists(); html.push('<ol>'); inOl = true; }
+      html.push(`<li>${line.replace(/^\d+\.\s+/, '')}</li>`);
+      continue;
+    }
 
-      pagination: {
-        el: '.swiper-pagination',
-        clickable: true
-      },
-
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev'
-      },
-
-      breakpoints: {
-        640: { slidesPerView: 1 },
-        768: { slidesPerView: 2 },
-        1024: { slidesPerView: 3 }
-      }
-    });
-  }, 100);
-}
-
-  formatContent(text: string): string {
-    const lines = text.split('\n');
-
-    const htmlLines = lines.map(line => {
-      if (line.startsWith('🔸')) return `<h4 class="section-heading">التعريف:</h4>`;
-      if (line.startsWith('🔹')) return `<h4 class="section-heading">الفئة المستهدفة:</h4>`;
-      if (line.startsWith('🎯')) return `<h4 class="section-heading">الأهداف:</h4>`;
-      if (line.startsWith('🧩')) return `<h4 class="section-heading">تقسيمة الحلقة:</h4>`;
-      if (line.startsWith('📌')) return `<h4 class="section-heading">المحتوى:</h4>`;
-      if (line.startsWith('⏱')) return `<p class="section-sub"><strong>⏱ المدة:</strong> ${line.replace('⏱ ', '')}</p>`;
-      if (line.startsWith('🎧')) return `<h4 class="section-heading">الوسائل المساعدة:</h4>`;
-      if (line.startsWith('🎒')) return `<h4 class="section-heading">الوسائل التعليمية:</h4>`;
-      if (line.startsWith('🧰')) return `<h4 class="section-heading">أدوات مساعدة:</h4>`;
-      if (line.startsWith('📓')) return `<h4 class="section-heading">واجب تطبيقي:</h4>`;
-      if (line.startsWith('🗣')) return `<h4 class="section-heading">التسميع والمراجعة:</h4>`;
-      if (line.startsWith('🔊')) return `<h4 class="section-heading">الحفظ:</h4>`;
-      if (line.startsWith('🧠')) return `<h4 class="section-heading">التدبر:</h4>`;
-      if (line.startsWith('📖')) return `<h4 class="section-heading">التهيئة:</h4>`;
-      if (line.startsWith('🎖')) return `<h4 class="section-heading">أدوات التقييم:</h4>`;
-      if (line.startsWith('🧪')) return `<h4 class="section-heading">الاختبارات:</h4>`;
-      if (line.startsWith('🧱')) return `<h4 class="section-heading">الحصون:</h4>`;
-      if (line.startsWith('ماسية')) return `<p><strong>الباقات:</strong> ${line}</p>`;
-
-      return `<p>${line}</p>`;
-    });
-
-    return htmlLines.join('');
+    html.push(`<p>${line}</p>`);
   }
-}
+
+  closeLists();
+  return html.join('');
+}}

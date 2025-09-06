@@ -4,28 +4,20 @@
 
 <div class="swiper-container">
   <div class="swiper-wrapper">
-    <div
-      class="swiper-slide"
-      *ngFor="let package of packages"
-    >
-      <div
-        class="package-card animate"
-        [dir]="currentLang === 'ar' ? 'rtl' : 'ltr'"
-      >
+    <div class="swiper-slide" *ngFor="let package of packages">
+      <div class="package-item" [dir]="currentLang === 'ar' ? 'rtl' : 'ltr'">
         <h3 class="package-title">
           {{ currentLang === 'ar' ? package.titleAr : package.titleEn }}
         </h3>
-        <p class="package-content">
-          {{ currentLang === 'ar' ? package.contentAr : package.contentEn }}
-        </p>
+
+     <div class="package-body"
+     [innerHTML]="formatContent(currentLang === 'ar' ? package.contentAr : package.contentEn, currentLang)">
+</div>
       </div>
     </div>
   </div>
 
-  <!-- Navigation buttons (optional) -->
   <div class="swiper-button-prev"></div>
   <div class="swiper-button-next"></div>
-
-  <!-- Pagination dots -->
   <div class="swiper-pagination"></div>
 </div>
