@@ -17,9 +17,10 @@ export class AboutUsComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChildren('dot') dotElements!: QueryList<ElementRef>;
 
   slides: string[] = [
-    'https://i.pinimg.com/736x/fd/07/1b/fd071bbe03e4f934d9778fc891991f2b.jpg',
-    'https://i.pinimg.com/736x/7e/12/68/7e1268fcfbe66584d3d5e4f17dcdd6ef.jpg',
-    'https://i.pinimg.com/736x/5b/ac/a7/5baca7ecb295e3db48df80ad419eb46b.jpg',
+    'https://ajyalquran.somee.com/media/slider1.jpg',
+    'https://ajyalquran.somee.com/media/slider2.jpg',
+    'https://ajyalquran.somee.com/media/slider3.jpg',
+    
   ];
 
   currentSlide = 0;

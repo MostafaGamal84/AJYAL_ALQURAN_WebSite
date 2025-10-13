@@ -50,7 +50,7 @@ features: Feature[] = [
     descriptionEn: 'Ajyal Al-Quran provides detailed student performance reports including academic progress, attendance, and activity participation—helping teachers and administrators support each student according to their needs.',
     icon: {
       type: 'img',
-      content: `https://ajyalalquran.somee.com/assets/images/1.jpg`
+      content: `https://ajyalquran.somee.com/media/1.jpg`
     }
   },
   {
@@ -63,7 +63,7 @@ features: Feature[] = [
     descriptionEn: `A team of qualified supervisors monitors student progress, ensures teaching quality, reinforces Quranic values, and addresses educational challenges to maintain a productive learning environment.`,
     icon: {
       type: 'img',
-      content: 'https://i.pinimg.com/736x/c3/1e/c0/c31ec00f14f34b803f6d0fc15fcc6fd9.jpg',
+      content: 'https://ajyalquran.somee.com/media/c31ec00f14f34b803f6d0fc15fcc6fd9.jpg	',
     }
   },
   {
@@ -76,7 +76,7 @@ features: Feature[] = [
     descriptionEn: `Individualized class system ensures personalized follow-up. Classes are divided by group: Men, Women, and Children—with age-appropriate teaching environments.`,
     icon: {
       type: 'img',
-      content: `https://ajyalalquran.somee.com/assets/images/2.jpg`
+      content: `https://ajyalquran.somee.com/media/2.jpg`
     }
   },
   {
@@ -89,7 +89,7 @@ features: Feature[] = [
     descriptionEn: `A team of highly qualified male and female teachers combines academic skill with educational experience, instilling Quranic values and supporting students' continued growth.`,
     icon: {
       type: 'img',
-      content: 'https://ajyalalquran.somee.com/assets/images/3.jpg',
+      content: 'https://ajyalquran.somee.com/media/3.jpg',
       style: {
         borderRadius: '10px',
         boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)'
