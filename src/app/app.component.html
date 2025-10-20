@@ -1,34 +1,396 @@
-<app-header></app-header>
-<app-back-to-top></app-back-to-top>
+<nav class="navbar navbar-expand-lg custom-navbar" [ngClass]="{ 'scrolled': isScrolled }">
+  <div class="container-fluid">
+    <a class="navbar-brand d-lg-none" href="#" (click)="scrollTo('about', $event)">
+      <img src="https://ajyalquran.somee.com/media/Logo.jpg" alt="شعار أجيال القرآن" width="40" height="40"
+        class="img-navbar" loading="lazy" />
+    </a>
 
-<section appAppInViewport animationClass="fade-from-bottom">
-  <app-about-us id="about"></app-about-us>
-</section>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-<section appAppInViewport animationClass="fade-from-bottom">
-  <app-feature id="features"></app-feature>
-</section>
+    <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+      <ul class="navbar-nav align-items-center">
+        <li class="nav-item">
+          <a class="nav-link active" href="#about" (click)="scrollTo('about', $event)">
+            {{ currentLang === 'ar' ? 'من نحن' : 'About Us' }}
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#features" (click)="scrollTo('features', $event)">
+            {{ currentLang === 'ar' ? 'الميزات' : 'Features' }}
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#our-services" (click)="scrollTo('our-services', $event)">
+            {{ currentLang === 'ar' ? 'خدماتنا' : 'Our Services' }}
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#packages" (click)="scrollTo('packages', $event)">
+            {{ currentLang === 'ar' ? 'أقسام المدرسة' : 'School Sections' }}
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#contact" (click)="scrollTo('contact', $event)">
+            {{ currentLang === 'ar' ? 'اتصل بنا' : 'Contact Us' }}
+          </a>
+        </li>
+        <li class="nav-item">
+          <button class="nav-link" type="button" (click)="toggleLanguage()">
+            🌐 {{ currentLang === 'ar' ? 'English' : 'العربية' }}
+          </button>
+        </li>
+      </ul>
 
-<section appAppInViewport animationClass="fade-from-bottom">
-  <app-our-services id="our-services"></app-our-services>
-</section>
+      <a class="navbar-brand d-none d-lg-block mx-3" href="#" (click)="scrollTo('about', $event)">
+        <img src="https://ajyalquran.somee.com/media/Logo.jpg" alt="شعار أجيال القرآن" width="50" height="50"
+          class="img-navbar" loading="lazy" />
+      </a>
+    </div>
+  </div>
+</nav>
 
-<section appAppInViewport animationClass="fade-from-bottom">
-  <app-packages id="packages"></app-packages>
-</section>
+<div class="fixed-buttons">
+  <button *ngIf="showBackToTop" class="back-to-top-btn" (click)="scrollToTop()" aria-label="العودة للأعلى">
+    ↑
+  </button>
+  <a href="https://wa.me/+201099381081" target="_blank" rel="noopener noreferrer" class="whatsapp-btn"
+    aria-label="تواصل معنا عبر واتساب">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+  <button type="button" (click)="playAudio()" class="play-btn" aria-label="تشغيل أو إيقاف الصوت">
+    {{ isPlaying ? '⏸️' : '🎵' }}
+  </button>
+</div>
 
-<section appAppInViewport animationClass="fade-from-bottom">
-  <app-contact id="contact"></app-contact>
-</section>
+<main>
+  <section id="about" class="about-us-section d-flex align-items-center justify-content-center text-center text-white min-vh-100"
+    appAppInViewport animationClass="fade-from-bottom">
+    <div class="slider w-100">
+      <div *ngFor="let slide of slides; let i = index" class="slide" #slideRef
+        [class.active]="currentSlide === i" [style.backgroundImage]="'url(' + slide + ')'">
+      </div>
+      <div class="overlay"></div>
+    </div>
 
-<section appAppInViewport animationClass="fade-from-bottom">
-  <app-footer></app-footer>
-</section>
+    <div class="container position-relative z-2 px-3 px-md-4">
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-10 col-lg-8">
+          <h2 class="fw-bold fs-5 mb-4 mt-5">
+            {{ currentLang === 'ar' ? sectionTitle.ar : sectionTitle.en }}
+          </h2>
+          <p class="lead mb-4 fs-6 fs-md-5">
+            {{ currentLang === 'ar' ? description.ar : description.en }}
+          </p>
+        </div>
+      </div>
+    </div>
 
-<section appAppInViewport animationClass="fade-from-bottom">
-  <app-counter></app-counter>
-</section>
+    <div class="pagination">
+      <span *ngFor="let slide of slides; let i = index" class="dot" #dotRef [class.active]="currentSlide === i"
+        (click)="setCurrentSlide(i)">
+      </span>
+    </div>
+  </section>
 
-<section appAppInViewport animationClass="fade-from-bottom">
-  <app-slider></app-slider>
-</section>
+  <section class="testimonials-section container-fluid py-5" aria-labelledby="testimonials-title">
+    <div class="row mb-5">
+      <div class="col-12 text-center">
+        <h2 id="testimonials-title" class="section-header mb-3">
+          {{ currentLang === 'ar' ? 'لوحة الشرف للطلاب الخاتمين' : 'Honor Board for Quran Graduates' }}
+        </h2>
+        <p class="section-subtitle mx-auto">
+          {{ currentLang === 'ar' ? 'شاهد قصص نجاح طلابنا وتجاربهم المميزة في رحلة تعلم القرآن الكريم' : 'Explore our students\' success stories and experiences on their Quran learning journey.' }}
+        </p>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-12 col-lg-8">
+        <div class="testimonials-slider position-relative">
+          <div class="swiper testimonials-swiper" role="region"
+            [attr.aria-label]="currentLang === 'ar' ? 'شرائح إنجازات الطلاب' : 'Student achievement slides'">
+            <div class="swiper-wrapper">
+              <div *ngFor="let slide of testimonialSlides" class="swiper-slide text-center" role="group">
+                <div class="testimonial-image-wrapper">
+                  <img [src]="slide.image" class="testimonial-image" [alt]="currentLang === 'ar' ? slide.gender.ar : slide.gender.en"
+                    loading="lazy" />
+                </div>
+                <div class="testimonial-content mt-4">
+                  <h3 class="testimonial-name">{{ currentLang === 'ar' ? slide.title.ar : slide.title.en }}</h3>
+                  <p class="testimonial-role mb-0">{{ currentLang === 'ar' ? slide.gender.ar : slide.gender.en }}</p>
+                  <p class="testimonial-text mb-3">{{ currentLang === 'ar' ? slide.subtitle.ar : slide.subtitle.en }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button class="nav-button prev-button" type="button"
+            [attr.aria-label]="currentLang === 'ar' ? 'السابق' : 'Previous'">
+            <span class="arrow-icon">&#10094;</span>
+          </button>
+          <button class="nav-button next-button" type="button"
+            [attr.aria-label]="currentLang === 'ar' ? 'التالي' : 'Next'">
+            <span class="arrow-icon">&#10095;</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="features" class="feature-section" aria-labelledby="feature-title" appAppInViewport
+    animationClass="fade-from-bottom">
+    <div class="container-fluid features">
+      <div class="row">
+        <div class="col-12 text-center">
+          <div class="section-title">
+            <span>{{ currentLang === 'ar' ? 'الميزات' : 'Features' }}</span>
+            <h2 id="feature-title">{{ currentLang === 'ar' ? featureSectionTitle.ar : featureSectionTitle.en }}</h2>
+          </div>
+        </div>
+
+        <div class="col-xl-3 col-lg-4 col-md-6 col-12" *ngFor="let feature of features; let i = index">
+          <article class="feature-item" [attr.aria-label]="currentLang === 'ar' ? feature.titleAr : feature.titleEn">
+            <span class="feature-number" aria-hidden="true">{{ feature.id }}</span>
+
+            <div class="fea-icon">
+              <ng-container *ngIf="feature.icon.type === 'svg' && isValidSvg(feature.icon.content); else imageBlock">
+                <div class="svg-icon" [innerHTML]="feature.icon.content" role="img"
+                  [attr.aria-label]="currentLang === 'ar' ? feature.titleAr : feature.titleEn">
+                </div>
+              </ng-container>
+              <ng-template #imageBlock>
+                <img class="rounded-2" [src]="feature.icon.content"
+                  [alt]="currentLang === 'ar' ? feature.titleAr : feature.titleEn" width="140" loading="lazy"
+                  [ngStyle]="feature.icon.style || {}" />
+              </ng-template>
+            </div>
+
+            <div class="feature-content fea-content">
+              <h3 class="fea-title">{{ currentLang === 'ar' ? feature.titleAr : feature.titleEn }}</h3>
+              <p class="fea-desc">{{ currentLang === 'ar' ? feature.descriptionAr : feature.descriptionEn }}</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="counters-section" aria-labelledby="counters-title" appAppInViewport animationClass="fade-from-bottom">
+    <h2 id="counters-title" class="visually-hidden">
+      {{ currentLang === 'ar' ? 'إحصائياتنا' : 'Our Statistics' }}
+    </h2>
+
+    <div class="counter-container">
+      <article class="counter-item" *ngFor="let counter of counters" #counterElement role="region"
+        [attr.aria-label]="currentLang === 'ar' ? counter.label.ar : counter.label.en">
+        <div class="counter-icon" aria-hidden="true">
+          <i [class]="counter.icon"></i>
+        </div>
+
+        <div class="counter-number">
+          <span class="counter-value" [attr.data-target]="counter.target">
+            {{ formatNumber(counter.count) }}
+          </span>
+          <span class="counter-suffix" aria-hidden="true">+</span>
+        </div>
+
+        <p class="counter-label">
+          {{ currentLang === 'ar' ? counter.label.ar : counter.label.en }}
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section id="our-services" class="services-section" appAppInViewport animationClass="fade-from-bottom">
+    <div class="container">
+      <h2>{{ currentLang === 'ar' ? 'قائمة دوراتنا' : 'Our Courses List' }}</h2>
+      <h3 class="title">{{ currentLang === 'ar' ? 'الدورات الشائعة' : 'Popular Courses' }}</h3>
+
+      <div *ngIf="services.length === 0" class="no-courses-card">
+        <div class="no-courses-content">
+          <h3>🎉 {{ currentLang === 'ar' ? 'لا توجد دورات متاحة حالياً' : 'No Courses Available Yet' }}</h3>
+          <p>
+            {{ currentLang === 'ar'
+              ? 'هذه الميزة سيتم تفعيلها قريبًا إن شاء الله. تابعنا للمزيد.'
+              : 'This feature will be available soon, Insha\'Allah. Stay tuned for updates.' }}
+          </p>
+        </div>
+      </div>
+
+      <div *ngIf="services.length > 0" class="services-container">
+        <div class="service-details" *ngIf="currentCourse">
+          <h3 class="course-name">
+            {{ currentLang === 'ar' ? currentCourse.courseNameAr : currentCourse.courseNameEn }}
+          </h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="packages" class="packages-container" appAppInViewport animationClass="fade-from-bottom">
+    <h2 class="section-title text-center">
+      {{ currentLang === 'ar' ? 'الأقسام' : 'Sections' }}
+    </h2>
+
+    <div class="swiper packages-swiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" *ngFor="let package of packages">
+          <div class="package-item" [dir]="currentLang === 'ar' ? 'rtl' : 'ltr'">
+            <h3 class="package-title">
+              {{ currentLang === 'ar' ? package.titleAr : package.titleEn }}
+            </h3>
+            <div class="package-body"
+              [innerHTML]="formatContent(currentLang === 'ar' ? package.contentAr : package.contentEn, currentLang)">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="swiper-button-prev packages-button-prev"></div>
+      <div class="swiper-button-next packages-button-next"></div>
+      <div class="swiper-pagination packages-pagination"></div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact-section py-5" appAppInViewport animationClass="fade-from-bottom">
+    <div class="container">
+      <div class="row justify-content-center mb-5">
+        <div class="col-12 col-md-8 text-center">
+          <h2 class="section-title mb-4">
+            {{ currentLang === 'ar' ? 'اتصل بنا' : 'Contact Us' }}
+          </h2>
+          <p class="section-description">
+            {{ currentLang === 'ar' ? 'نحن هنا للإجابة على استفساراتك' : 'We are here to answer your questions' }}
+          </p>
+        </div>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-10 col-lg-8">
+          <div *ngIf="submitResult" class="alert" [ngClass]="submitResult.success ? 'alert-success' : 'alert-danger'"
+            role="alert">
+            {{ submitResult.message }}
+          </div>
+
+          <form class="contact-form p-4 bg-white rounded-3 shadow-sm" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+            <div class="row g-3">
+              <div class="col-12 col-md-6">
+                <div class="form-group">
+                  <input type="text" class="form-control" [ngClass]="{'is-invalid': hasError('name')}"
+                    [placeholder]="currentLang === 'ar' ? 'الاسم' : 'Name'" formControlName="name" required />
+                  <div *ngIf="hasError('name')" class="invalid-feedback">{{ getErrorMessage('name') }}</div>
+                </div>
+              </div>
+
+              <div class="col-12 col-md-6">
+                <div class="form-group">
+                  <input type="email" class="form-control" [ngClass]="{'is-invalid': hasError('email')}"
+                    [placeholder]="currentLang === 'ar' ? 'البريد الإلكتروني' : 'Email Address'" formControlName="email"
+                    required />
+                  <div *ngIf="hasError('email')" class="invalid-feedback">{{ getErrorMessage('email') }}</div>
+                </div>
+              </div>
+
+              <div class="col-12">
+                <div class="form-group">
+                  <input type="tel" class="form-control" [ngClass]="{'is-invalid': hasError('phone')}"
+                    [placeholder]="currentLang === 'ar' ? 'رقم الهاتف' : 'Phone Number'" formControlName="phone" />
+                  <div *ngIf="hasError('phone')" class="invalid-feedback">{{ getErrorMessage('phone') }}</div>
+                </div>
+              </div>
+
+              <div class="col-12">
+                <div class="form-group">
+                  <textarea class="form-control" [ngClass]="{'is-invalid': hasError('message')}" rows="5"
+                    [placeholder]="currentLang === 'ar' ? 'رسالتك' : 'Your Message'" formControlName="message"
+                    required></textarea>
+                  <div *ngIf="hasError('message')" class="invalid-feedback">{{ getErrorMessage('message') }}</div>
+                </div>
+              </div>
+
+              <div class="col-12 text-center">
+                <button type="submit" class="btn btn-primary px-5 py-2" [disabled]="contactForm.invalid || isSubmitting">
+                  <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-2" role="status"
+                    aria-hidden="true"></span>
+                  {{ isSubmitting ? (currentLang === 'ar' ? 'جاري الإرسال...' : 'Sending...') : (currentLang === 'ar' ? 'إرسال' : 'Submit') }}
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="row mt-5 g-4">
+        <div class="col-12 col-md-6">
+          <div class="contact-info text-center p-3">
+            <i class="fas fa-phone mb-3" aria-hidden="true"></i>
+            <h4 class="h5">{{ currentLang === 'ar' ? 'الواتساب' : 'WhatsApp' }}</h4>
+            <p class="mb-0">+201099381081</p>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="contact-info text-center p-3">
+            <i class="fas fa-envelope mb-3" aria-hidden="true"></i>
+            <h4 class="h5">{{ currentLang === 'ar' ? 'البريد الإلكتروني' : 'Email' }}</h4>
+            <p class="mb-0">allhghayte8&#64;gmail.com</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer-container" [dir]="currentLang === 'ar' ? 'rtl' : 'ltr'">
+  <div class="footer-content">
+    <div class="footer-section company-info">
+      <h3 class="company-heading">
+        {{ currentLang === 'ar' ? companyName.ar : companyName.en }}
+      </h3>
+      <img src="https://ajyalquran.somee.com/media/Logo.jpg" [alt]="currentLang === 'ar' ? companyName.ar : companyName.en"
+        width="100" height="100" class="img-navbar" loading="lazy" />
+    </div>
+
+    <div class="footer-section quick-links">
+      <h4>{{ currentLang === 'ar' ? 'روابط سريعة' : 'Quick Links' }}</h4>
+      <ul>
+        <li *ngFor="let link of quickLinks">
+          <a class="nav-link" href="#{{ link.id }}" (click)="scrollTo(link.id, $event)">
+            {{ currentLang === 'ar' ? link.textAr : link.textEn }}
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="footer-section contact-info">
+      <h4>{{ currentLang === 'ar' ? 'اتصل بنا' : 'Contact Us' }}</h4>
+      <p>
+        {{ currentLang === 'ar' ? 'البريد الإلكتروني:' : 'Email:' }}
+        <a [href]="'mailto:' + contactInfo.email">{{ contactInfo.email }}</a>
+      </p>
+      <p>
+        {{ currentLang === 'ar' ? 'الواتساب:' : 'WhatsApp:' }}
+        {{ contactInfo.phone }}
+      </p>
+    </div>
+
+    <div class="footer-section social-media">
+      <h4>{{ currentLang === 'ar' ? 'تابعنا' : 'Follow Us' }}</h4>
+      <div class="social-links">
+        <a *ngFor="let social of socialLinks" [href]="social.url" target="_blank" rel="noopener noreferrer"
+          [attr.aria-label]="social.ariaLabel">
+          <i class="fab fa-{{ social.icon }}" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>
+      &copy; {{ currentYear }} {{ currentLang === 'ar' ? companyName.ar : companyName.en }}.
+      {{ currentLang === 'ar' ? 'جميع الحقوق محفوظة.' : 'All rights reserved.' }}
+    </p>
+  </div>
+</footer>
